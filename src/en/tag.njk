@@ -1,10 +1,10 @@
 ---
 layout: layouts/base.njk
 pagination:
-  data: collections.tagList
+  data: collections.tagListEn
   size: 1
   alias: tag
-permalink: /tags/{{ tag.name | slugify }}/
+permalink: /en/tags/{{ tag.name | slugify }}/
 eleventyComputed:
   title: "#{{ tag.name }}"
 ---

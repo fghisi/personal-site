@@ -1,0 +1,4 @@
+<h1>#{{ tag.name }}</h1>
+<p class="meta">{{ tag.count }} post{% if tag.count > 1 %}s{% endif %} · <a href="{{ t.tagsUrl }}">{{ t.todasTags }}</a></p>
+{% set lista = tag.posts %}
+{% include "lista-posts.njk" %}

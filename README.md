@@ -36,12 +36,30 @@ Conteúdo em Markdown...
 
 A URL gerada fica `/AAAA/MM/DD/slug/`.
 
+## Versão em inglês
+
+Posts em inglês ficam em `src/en/posts/` e aparecem em `/en/`. Para ligar um post
+à sua tradução (e fazer o seletor PT | EN do topo levar direto a ela), use o mesmo
+`translationKey` nos dois arquivos:
+
+```markdown
+translationKey: ola-mundo
+```
+
+Sem tradução, o seletor leva para a página inicial do outro idioma.
+
+## Tema claro/escuro
+
+No topo, o interruptor **auto** faz o site seguir o tema do sistema. O botão de
+sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegador.
+
 ## Onde personalizar
 
 | O quê                         | Arquivo                         |
 |-------------------------------|---------------------------------|
-| Nome, descrição, URL, menu    | `src/_data/site.js`             |
-| Página "Sobre"                | `src/sobre.md`                  |
+| Nome do site, URL, GitHub     | `src/_data/site.js`             |
+| Descrição, menu e textos (PT/EN) | `src/_data/i18n.js`          |
+| Página "Sobre"                | `src/sobre.md` e `src/en/about.md` |
 | Cores, fontes e layout        | `src/css/style.css`             |
 | Cores do realce de código     | `src/css/code.css`              |
 | Estrutura HTML                | `src/_includes/layouts/`        |

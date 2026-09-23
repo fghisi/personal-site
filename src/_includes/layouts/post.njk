@@ -1,18 +1,18 @@
 ---
 layout: layouts/base.njk
 ---
+{% set colecao = collections.postsEn if lang == "en" else collections.posts %}
 <article class="post">
   <header class="post__cabecalho">
     <p class="meta">
-      <time datetime="{{ page.date | dataIso }}">{{ page.date | dataExtensa }}</time>
-      · {{ content | tempoLeitura }} min de leitura
+      <time datetime="{{ page.date | dataIso }}">{{ page.date | dataExtensa(lang) }}</time>
+      · {{ content | tempoLeitura }} {{ t.leitura }}
     </p>
     <h1>{{ title }}</h1>
     {% if description %}<p class="post__resumo">{{ description }}</p>{% endif %}
-    {% set postTags = tags | semPosts %}
-    {% if postTags.length %}
+    {% if tags and tags.length %}
     <ul class="tags">
-      {% for tag in postTags %}<li><a href="/tags/{{ tag | slugify }}/">#{{ tag }}</a></li>{% endfor %}
+      {% for tag in tags %}<li><a href="{{ t.tagsUrl }}{{ tag | slugify }}/">#{{ tag }}</a></li>{% endfor %}
     </ul>
     {% endif %}
   </header>
@@ -21,10 +21,10 @@ layout: layouts/base.njk
     {{ content | safe }}
   </div>
 
-  <nav class="post__navegacao" aria-label="Posts vizinhos">
-    {% set anterior = collections.posts | getNextCollectionItem(page) %}
-    {% set proximo = collections.posts | getPreviousCollectionItem(page) %}
-    {% if anterior %}<a class="vizinho" href="{{ anterior.url }}"><span>← Anterior</span>{{ anterior.data.title }}</a>{% endif %}
-    {% if proximo %}<a class="vizinho vizinho--prox" href="{{ proximo.url }}"><span>Próximo →</span>{{ proximo.data.title }}</a>{% endif %}
+  <nav class="post__navegacao" aria-label="Posts">
+    {% set anterior = colecao | getNextCollectionItem(page) %}
+    {% set proximo = colecao | getPreviousCollectionItem(page) %}
+    {% if anterior %}<a class="vizinho" href="{{ anterior.url }}"><span>{{ t.anterior }}</span>{{ anterior.data.title }}</a>{% endif %}
+    {% if proximo %}<a class="vizinho vizinho--prox" href="{{ proximo.url }}"><span>{{ t.proximo }}</span>{{ proximo.data.title }}</a>{% endif %}
   </nav>
 </article>

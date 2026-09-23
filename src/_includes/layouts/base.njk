@@ -1,41 +1,68 @@
 <!doctype html>
-<html lang="{{ site.language }}">
+<html lang="{{ t.htmlLang }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if title %}{{ title }} · {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{{ description or site.description }}">
-  <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="{{ site.title }}">
+  <meta name="description" content="{{ description or t.description }}">
+  <link rel="alternate" type="application/atom+xml" href="{% if lang == 'en' %}/en{% endif %}/feed.xml" title="{{ site.title }}">
   <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {% set urlPt = page.url if lang == "pt" else collections.all | traducao(translationKey, "pt") %}
+  {% set urlEn = page.url if lang == "en" else collections.all | traducao(translationKey, "en") %}
+  <link rel="alternate" hreflang="pt-BR" href="{{ site.url }}{{ urlPt }}">
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ urlEn }}">
   <meta property="og:title" content="{{ title or site.title }}">
-  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:description" content="{{ description or t.description }}">
   <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
   <script>
     try {
       const t = localStorage.getItem("tema");
-      if (t) document.documentElement.dataset.theme = t;
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
     } catch (e) {}
   </script>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/code.css">
 </head>
 <body>
-  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <a class="pular" href="#conteudo">{{ t.pular }}</a>
   <header class="topo">
-    <div class="container topo__linha">
-      <a class="marca" href="/">
-        <span class="marca__cursor" aria-hidden="true">~/</span>{{ site.title | lower | replace(" ", "-") }}
-      </a>
-      <nav aria-label="Principal">
-        <ul class="menu">
-          {% for item in site.nav %}
-          <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
-          {% endfor %}
-        </ul>
-      </nav>
-      <button class="tema" type="button" aria-label="Alternar tema claro/escuro">
-        <span aria-hidden="true">◐</span>
-      </button>
+    <div class="topo__linha">
+      <a class="marca" href="{{ t.home }}">{{ site.title }}</a>
+
+      <div class="topo__direita">
+        <nav aria-label="Principal">
+          <ul class="menu">
+            {% for item in t.nav %}
+            <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+            {% endfor %}
+            <li>
+              <a class="menu__icone" href="{{ site.github }}" aria-label="GitHub" title="GitHub">
+                <svg viewBox="0 0 16 16" width="24" height="24" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="controles">
+          <nav class="idiomas" aria-label="{{ t.idioma }}">
+            <a href="{{ urlPt }}" hreflang="pt-BR" lang="pt-BR"{% if lang == 'pt' %} aria-current="true"{% endif %}>PT</a>
+            <span aria-hidden="true">|</span>
+            <a href="{{ urlEn }}" hreflang="en" lang="en"{% if lang == 'en' %} aria-current="true"{% endif %}>EN</a>
+          </nav>
+
+          <label class="auto" title="{{ t.temaAuto }}">
+            <input class="auto__input" type="checkbox" role="switch" checked>
+            <span class="auto__trilho" aria-hidden="true"></span>
+            <span class="auto__texto">auto</span>
+            <span class="visualmente-oculto">{{ t.temaAuto }}</span>
+          </label>
+
+          <button class="tema" type="button" aria-label="{{ t.temaAlternar }}" title="{{ t.temaAlternar }}">
+            <svg class="tema__sol" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="tema__lua" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -45,9 +72,10 @@
 
   <footer class="rodape">
     <div class="container rodape__linha">
-      <p>© {{ anoAtual }} {{ site.author.name }}. Textos sob <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.pt_BR">CC BY-SA 4.0</a>.</p>
+      <p>© {{ anoAtual }} {{ site.author.name }}. {{ t.licenca }} <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
       <ul class="social">
-        {% for s in site.social %}<li><a href="{{ s.url }}">{{ s.label }}</a></li>{% endfor %}
+        <li><a href="{{ site.github }}">GitHub</a></li>
+        <li><a href="{% if lang == 'en' %}/en{% endif %}/feed.xml">RSS</a></li>
       </ul>
     </div>
   </footer>

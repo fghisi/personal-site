@@ -1,0 +1,15 @@
+<h1>{{ t.arquivo }}</h1>
+<p class="meta">{{ lista.length }} {{ t.publicados }}</p>
+{% for grupo in lista | porAno %}
+<section class="arquivo">
+  <h2>{{ grupo.year }}</h2>
+  <ul>
+    {% for post in grupo.posts %}
+    <li>
+      <time datetime="{{ post.date | dataIso }}">{{ post.date | diaMes(lang) }}</time>
+      <a href="{{ post.url }}">{{ post.data.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

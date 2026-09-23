@@ -1,24 +1,10 @@
 ---
 layout: layouts/base.njk
+translationKey: home
 pagination:
   data: collections.posts
   size: 10
   alias: lista
 permalink: "{% if pagination.pageNumber > 0 %}/pagina/{{ pagination.pageNumber + 1 }}/{% else %}/{% endif %}"
 ---
-{% if pagination.pageNumber == 0 %}
-<section class="apresentacao">
-  <h1>{{ site.title }}</h1>
-  <p>{{ site.description }}</p>
-</section>
-{% endif %}
-
-{% include "lista-posts.njk" %}
-
-{% if pagination.pages.length > 1 %}
-<nav class="paginacao" aria-label="Paginação">
-  {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">← Mais recentes</a>{% else %}<span></span>{% endif %}
-  <span class="meta">Página {{ pagination.pageNumber + 1 }} de {{ pagination.pages.length }}</span>
-  {% if pagination.href.next %}<a href="{{ pagination.href.next }}">Mais antigos →</a>{% else %}<span></span>{% endif %}
-</nav>
-{% endif %}
+{% include "pagina-home.njk" %}

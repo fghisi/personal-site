@@ -192,9 +192,8 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
 
 /* ---------- Rodapé ---------- */
 .rodape { border-top: 1px solid var(--borda); color: var(--fg-2); font-size: 0.875rem; }
-.rodape__linha { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.5rem; }
+.rodape__linha { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.5rem; }
 .rodape p { margin: 0; }
-.social { display: flex; gap: 1rem; list-style: none; margin: 0; padding: 0; }
 
 @media (max-width: 640px) {
   .sobre__intro { flex-direction: column; align-items: flex-start; gap: 1rem; }

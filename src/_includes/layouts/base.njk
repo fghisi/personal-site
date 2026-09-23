@@ -72,11 +72,7 @@
 
   <footer class="rodape">
     <div class="container rodape__linha">
-      <p>© {{ anoAtual }} {{ site.author.name }}. {{ t.licenca }} <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
-      <ul class="social">
-        {% for s in site.social %}<li><a href="{{ s.url }}" rel="me noopener" target="_blank">{{ s.label }}</a></li>{% endfor %}
-        <li><a href="{% if lang == 'en' %}/en{% endif %}/feed.xml">RSS</a></li>
-      </ul>
+      <p>{{ anoAtual }} - {{ site.author.name }} - {{ t.direitos }}</p>
     </div>
   </footer>
   <script src="/js/main.js" defer></script>

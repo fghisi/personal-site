@@ -32,11 +32,4 @@ Lidero a área de tecnologia da **PagueVeloz by Serasa**, organizada em três fr
 
 Aqui escrevo sobre engenharia de software, liderança técnica e o que aprendo construindo tecnologia para pagamentos.
 
-## Contato
-
-- LinkedIn: [fghisi](https://www.linkedin.com/in/fghisi/)
-- X (Twitter): [@fghisi_](https://x.com/fghisi_)
-- GitHub: [fghisi](https://github.com/fghisi)
-- Feed: [RSS/Atom](/feed.xml)
-
 </div>

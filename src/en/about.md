@@ -32,11 +32,4 @@ I lead the technology area at **PagueVeloz by Serasa**, organized into three fro
 
 I write here about software engineering, technical leadership and what I learn building technology for payments.
 
-## Contact
-
-- LinkedIn: [fghisi](https://www.linkedin.com/in/fghisi/)
-- X (Twitter): [@fghisi_](https://x.com/fghisi_)
-- GitHub: [fghisi](https://github.com/fghisi)
-- Feed: [RSS/Atom](/en/feed.xml)
-
 </div>

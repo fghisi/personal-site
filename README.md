@@ -8,7 +8,12 @@ código), com design, código e textos próprios.
 
 ## Rodando localmente
 
+Requer Node.js 18+ (o arquivo `.nvmrc` fixa a versão 22). Com o
+[nvm](https://github.com/nvm-sh/nvm), basta rodar `nvm use` na pasta do projeto.
+
 ```bash
+nvm install     # instala a versão do .nvmrc (só na primeira vez)
+nvm use
 npm install
 npm run dev     # servidor em http://localhost:8080 com recarga automática
 npm run build   # gera o site estático em _site/

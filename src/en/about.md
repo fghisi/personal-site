@@ -16,6 +16,8 @@ software development, architecture, Linux, tooling and career.
 ## Contact
 
 - GitHub: [fghisi](https://github.com/fghisi)
+- LinkedIn: [fghisi](https://www.linkedin.com/in/fghisi/)
+- X (Twitter): [@fghisi_](https://x.com/fghisi_)
 - Feed: [RSS/Atom](/en/feed.xml)
 
 </div>

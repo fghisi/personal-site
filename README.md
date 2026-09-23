@@ -57,7 +57,7 @@ sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegado
 
 | O quê                         | Arquivo                         |
 |-------------------------------|---------------------------------|
-| Nome do site, URL, GitHub     | `src/_data/site.js`             |
+| Nome do site, URL, redes sociais | `src/_data/site.js`             |
 | Descrição, menu e textos (PT/EN) | `src/_data/i18n.js`          |
 | Página "Sobre"                | `src/sobre.md` e `src/en/about.md` |
 | Cores, fontes e layout        | `src/css/style.css`             |

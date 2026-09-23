@@ -16,6 +16,8 @@ e opiniões sobre desenvolvimento de software, arquitetura, Linux, ferramentas e
 ## Contato
 
 - GitHub: [fghisi](https://github.com/fghisi)
+- LinkedIn: [fghisi](https://www.linkedin.com/in/fghisi/)
+- X (Twitter): [@fghisi_](https://x.com/fghisi_)
 - Feed: [RSS/Atom](/feed.xml)
 
 > Edite este texto em `src/sobre.md` e seus dados em `src/_data/site.js`.

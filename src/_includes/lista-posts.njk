@@ -1,0 +1,15 @@
+<ol class="lista">
+  {% for post in lista %}
+  <li class="cartao">
+    <p class="meta"><time datetime="{{ post.date | dataIso }}">{{ post.date | dataExtensa }}</time></p>
+    <h2 class="cartao__titulo"><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
+    {% if post.data.description %}<p class="cartao__resumo">{{ post.data.description }}</p>{% endif %}
+    {% set postTags = post.data.tags | semPosts %}
+    {% if postTags.length %}
+    <ul class="tags">
+      {% for tag in postTags %}<li><a href="/tags/{{ tag | slugify }}/">#{{ tag }}</a></li>{% endfor %}
+    </ul>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ol>

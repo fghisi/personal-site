@@ -1,0 +1,30 @@
+---
+layout: layouts/base.njk
+---
+<article class="post">
+  <header class="post__cabecalho">
+    <p class="meta">
+      <time datetime="{{ page.date | dataIso }}">{{ page.date | dataExtensa }}</time>
+      · {{ content | tempoLeitura }} min de leitura
+    </p>
+    <h1>{{ title }}</h1>
+    {% if description %}<p class="post__resumo">{{ description }}</p>{% endif %}
+    {% set postTags = tags | semPosts %}
+    {% if postTags.length %}
+    <ul class="tags">
+      {% for tag in postTags %}<li><a href="/tags/{{ tag | slugify }}/">#{{ tag }}</a></li>{% endfor %}
+    </ul>
+    {% endif %}
+  </header>
+
+  <div class="prosa">
+    {{ content | safe }}
+  </div>
+
+  <nav class="post__navegacao" aria-label="Posts vizinhos">
+    {% set anterior = collections.posts | getNextCollectionItem(page) %}
+    {% set proximo = collections.posts | getPreviousCollectionItem(page) %}
+    {% if anterior %}<a class="vizinho" href="{{ anterior.url }}"><span>← Anterior</span>{{ anterior.data.title }}</a>{% endif %}
+    {% if proximo %}<a class="vizinho vizinho--prox" href="{{ proximo.url }}"><span>Próximo →</span>{{ proximo.data.title }}</a>{% endif %}
+  </nav>
+</article>

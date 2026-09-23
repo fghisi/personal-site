@@ -1,0 +1,14 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: /tags/{{ tag.name | slugify }}/
+eleventyComputed:
+  title: "#{{ tag.name }}"
+---
+<h1>#{{ tag.name }}</h1>
+<p class="meta">{{ tag.count }} post{% if tag.count > 1 %}s{% endif %} · <a href="/tags/">todas as tags</a></p>
+{% set lista = collections[tag.name] | reverse %}
+{% include "lista-posts.njk" %}

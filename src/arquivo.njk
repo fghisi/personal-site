@@ -1,0 +1,20 @@
+---
+layout: layouts/base.njk
+title: Arquivo
+permalink: /arquivo/
+---
+<h1>Arquivo</h1>
+<p class="meta">{{ collections.posts.length }} posts publicados.</p>
+{% for grupo in collections.posts | porAno %}
+<section class="arquivo">
+  <h2>{{ grupo.year }}</h2>
+  <ul>
+    {% for post in grupo.posts %}
+    <li>
+      <time datetime="{{ post.date | dataIso }}">{{ post.date | diaMes }}</time>
+      <a href="{{ post.url }}">{{ post.data.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

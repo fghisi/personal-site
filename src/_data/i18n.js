@@ -5,8 +5,7 @@ export default {
     htmlLang: "pt-BR",
     home: "/",
     description: "Anotações sobre programação, infraestrutura e o ofício de construir software.",
-    bio: "Desenvolvedor de software. Escrevo aqui o que aprendo, o que quebro e o que conserto.",
-    nav: [
+        nav: [
       { label: "Sobre", url: "/sobre/" },
       { label: "Arquivo", url: "/arquivo/" },
     ],
@@ -35,8 +34,7 @@ export default {
     htmlLang: "en",
     home: "/en/",
     description: "Notes on programming, infrastructure and the craft of building software.",
-    bio: "Software developer. I write here about what I learn, what I break and what I fix.",
-    nav: [
+        nav: [
       { label: "About", url: "/en/about/" },
       { label: "Archive", url: "/en/archive/" },
     ],

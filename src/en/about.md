@@ -4,20 +4,39 @@ title: About
 translationKey: about
 permalink: /en/about/
 ---
-<div class="prosa">
+<div class="prosa sobre">
 
-# About
+<div class="sobre__intro">
+  <img class="sobre__foto" src="/img/fernando.jpg" width="400" height="400" alt="Photo of Fernando Ghisi">
+  <div>
+    <h1>About</h1>
+    <p>Hi, I'm <strong>Fernando Ghisi</strong>. My background is in software engineering, and I'm moving from hands-on development into technical leadership.</p>
+  </div>
+</div>
 
-Hi! I'm **{{ site.author.name }}**. {{ t.bio }}
+## What drives my work
 
-This blog is my logbook: a place to record studies, experiments and opinions about
-software development, architecture, Linux, tooling and career.
+In the payments market, I believe **speed is the real competitive advantage**. That shapes how I lead: fast decisions, short cycles and technology that removes friction instead of adding process.
+
+I care about building teams that think pragmatically — that decide with the information at hand and adjust course along the way.
+
+## Today
+
+I lead the technology area at **PagueVeloz by Serasa**, organized into three fronts:
+
+- **Product teams** — deliver products and features for the payments ecosystem: acquiring, core banking and back office.
+- **Platform Engineering** — covers developer experience, security, observability, DevOps/SRE and cloud.
+- **Data team**.
+
+## About this blog
+
+I write here about software engineering, technical leadership and what I learn building technology for payments.
 
 ## Contact
 
-- GitHub: [fghisi](https://github.com/fghisi)
 - LinkedIn: [fghisi](https://www.linkedin.com/in/fghisi/)
 - X (Twitter): [@fghisi_](https://x.com/fghisi_)
+- GitHub: [fghisi](https://github.com/fghisi)
 - Feed: [RSS/Atom](/en/feed.xml)
 
 </div>

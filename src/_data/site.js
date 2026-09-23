@@ -1,7 +1,7 @@
 export default {
   title: "fghisi.com.br",
   url: "https://fghisi.com.br",
-  author: { name: "Seu Nome" },
+  author: { name: "Fernando Ghisi" },
   // Ícones exibidos no topo e no rodapé (o nome do ícone vem de src/_includes/icone.njk)
   social: [
     { label: "GitHub", icon: "github", url: "https://github.com/fghisi" },

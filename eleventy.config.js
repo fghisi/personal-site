@@ -27,6 +27,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("anoAtual", () => new Date().getFullYear());
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
+  eleventyConfig.addPassthroughCopy("src/img");
 
   const publicados = (api, lang) =>
     api.getFilteredByGlob(globs[lang]).filter((p) => !p.data.draft).reverse();

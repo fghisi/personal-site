@@ -5,4 +5,4 @@ translationKey: archive
 permalink: /arquivo/
 ---
 {% set lista = collections.posts %}
-{% include "pagina-arquivo.njk" %}
+{% if site.emConstrucao %}{% include "em-construcao.njk" %}{% else %}{% include "pagina-arquivo.njk" %}{% endif %}

@@ -7,4 +7,4 @@ pagination:
   alias: lista
 permalink: "{% if pagination.pageNumber > 0 %}/en/page/{{ pagination.pageNumber + 1 }}/{% else %}/en/{% endif %}"
 ---
-{% include "pagina-home.njk" %}
+{% if site.emConstrucao %}{% include "em-construcao.njk" %}{% else %}{% include "pagina-home.njk" %}{% endif %}

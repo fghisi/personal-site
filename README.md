@@ -48,6 +48,13 @@ translationKey: ola-mundo
 
 Sem tradução, o seletor leva para a página inicial do outro idioma.
 
+## Modo "em construção"
+
+Com `emConstrucao: true` em `src/_data/site.js`, a página inicial e o arquivo
+mostram um aviso de "Em construção" no lugar da lista de posts. Mude para
+`false` quando for publicar os primeiros textos. O texto do aviso fica em
+`src/_data/i18n.js`.
+
 ## Tema claro/escuro
 
 No topo, o interruptor **auto** faz o site seguir o tema do sistema. O botão de

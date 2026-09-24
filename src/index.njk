@@ -1,0 +1,10 @@
+---
+layout: layouts/base.njk
+translationKey: home
+pagination:
+  data: collections.posts
+  size: 10
+  alias: lista
+permalink: "{% if pagination.pageNumber > 0 %}/pagina/{{ pagination.pageNumber + 1 }}/{% else %}/{% endif %}"
+---
+{% if site.emConstrucao %}{% include "em-construcao.njk" %}{% else %}{% include "pagina-home.njk" %}{% endif %}

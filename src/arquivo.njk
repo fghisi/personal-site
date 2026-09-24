@@ -1,0 +1,8 @@
+---
+layout: layouts/base.njk
+title: Arquivo
+translationKey: archive
+permalink: /arquivo/
+---
+{% set lista = collections.posts %}
+{% if site.emConstrucao %}{% include "em-construcao.njk" %}{% else %}{% include "pagina-arquivo.njk" %}{% endif %}

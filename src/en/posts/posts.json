@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/post.njk",
+  "permalink": "/en/{{ page.date | dataIso | replace('-', '/') }}/{{ page.fileSlug }}/"
+}

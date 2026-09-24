@@ -1,0 +1,16 @@
+{% if pagination.pageNumber == 0 %}
+<section class="apresentacao">
+  <h1>{{ site.title }}</h1>
+  <p>{{ t.description }}</p>
+</section>
+{% endif %}
+
+{% include "lista-posts.njk" %}
+
+{% if pagination.pages.length > 1 %}
+<nav class="paginacao" aria-label="{{ t.pagina }}">
+  {% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">{{ t.maisRecentes }}</a>{% else %}<span></span>{% endif %}
+  <span class="meta">{{ t.pagina }} {{ pagination.pageNumber + 1 }} {{ t.de }} {{ pagination.pages.length }}</span>
+  {% if pagination.href.next %}<a href="{{ pagination.href.next }}">{{ t.maisAntigos }}</a>{% else %}<span></span>{% endif %}
+</nav>
+{% endif %}

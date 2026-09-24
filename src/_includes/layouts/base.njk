@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="{{ t.htmlLang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ description or t.description }}">
+  <link rel="alternate" type="application/atom+xml" href="{% if lang == 'en' %}/en{% endif %}/feed.xml" title="{{ site.title }}">
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {% set urlPt = page.url if lang == "pt" else collections.all | traducao(translationKey, "pt") %}
+  {% set urlEn = page.url if lang == "en" else collections.all | traducao(translationKey, "en") %}
+  <link rel="alternate" hreflang="pt-BR" href="{{ site.url }}{{ urlPt }}">
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ urlEn }}">
+  <meta property="og:title" content="{{ title or site.title }}">
+  <meta property="og:description" content="{{ description or t.description }}">
+  <meta property="og:type" content="{% if layout == 'layouts/post.njk' %}article{% else %}website{% endif %}">
+  <script>
+    try {
+      const t = localStorage.getItem("tema");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/code.css">
+</head>
+<body>
+  <a class="pular" href="#conteudo">{{ t.pular }}</a>
+  <header class="topo">
+    <div class="topo__linha">
+      <a class="marca" href="{{ t.home }}">{{ site.title }}</a>
+
+      <div class="topo__direita">
+        <nav aria-label="Principal">
+          <ul class="menu">
+            {% for item in t.nav %}
+            <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+            {% endfor %}
+            {% for s in site.social %}
+            <li>
+              <a class="menu__icone" href="{{ s.url }}" aria-label="{{ s.label }}" title="{{ s.label }}" rel="me noopener" target="_blank">{% set nome = s.icon %}{% include "icone.njk" %}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+
+        <div class="controles">
+          <nav class="idiomas" aria-label="{{ t.idioma }}">
+            <a href="{{ urlPt }}" hreflang="pt-BR" lang="pt-BR"{% if lang == 'pt' %} aria-current="true"{% endif %}>PT</a>
+            <span aria-hidden="true">|</span>
+            <a href="{{ urlEn }}" hreflang="en" lang="en"{% if lang == 'en' %} aria-current="true"{% endif %}>EN</a>
+          </nav>
+
+          <label class="auto" title="{{ t.temaAuto }}">
+            <input class="auto__input" type="checkbox" role="switch" checked>
+            <span class="auto__trilho" aria-hidden="true"></span>
+            <span class="auto__texto">auto</span>
+            <span class="visualmente-oculto">{{ t.temaAuto }}</span>
+          </label>
+
+          <button class="tema" type="button" aria-label="{{ t.temaAlternar }}" title="{{ t.temaAlternar }}">
+            <svg class="tema__sol" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="tema__lua" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container">
+    {{ content | safe }}
+  </main>
+
+  <footer class="rodape">
+    <div class="container rodape__linha">
+      <p>{{ anoAtual }} - {{ site.author.name }} - {{ t.direitos }}</p>
+    </div>
+  </footer>
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

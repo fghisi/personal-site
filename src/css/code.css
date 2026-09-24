@@ -1,0 +1,16 @@
+/* Realce de sintaxe (Prism) usando as cores do tema */
+.token.comment, .token.prolog, .token.doctype, .token.cdata { color: var(--fg-2); font-style: italic; }
+.token.punctuation { color: var(--fg-2); }
+.token.property, .token.tag, .token.boolean, .token.number, .token.constant, .token.symbol { color: #b45309; }
+.token.selector, .token.attr-name, .token.string, .token.char, .token.builtin, .token.inserted { color: var(--destaque-2); }
+.token.operator, .token.entity, .token.url, .token.variable { color: var(--fg); }
+.token.atrule, .token.attr-value, .token.keyword { color: #7c3aed; }
+.token.function, .token.class-name { color: var(--destaque); }
+.token.regex, .token.important { color: #be123c; }
+.token.deleted { color: #dc2626; }
+:root[data-theme="dark"] .token.keyword, :root[data-theme="dark"] .token.atrule { color: #c4b5fd; }
+:root[data-theme="dark"] .token.number, :root[data-theme="dark"] .token.boolean { color: #fbbf24; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .token.keyword, :root:not([data-theme="light"]) .token.atrule { color: #c4b5fd; }
+  :root:not([data-theme="light"]) .token.number, :root:not([data-theme="light"]) .token.boolean { color: #fbbf24; }
+}

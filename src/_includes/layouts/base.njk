@@ -20,6 +20,10 @@
       if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
     } catch (e) {}
   </script>
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:image" content="{{ site.url }}/img/logo/icon-512.png">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/code.css">
 </head>
@@ -27,7 +31,7 @@
   <a class="pular" href="#conteudo">{{ t.pular }}</a>
   <header class="topo">
     <div class="topo__linha">
-      <a class="marca" href="{{ t.home }}">{{ site.title }}</a>
+      <a class="marca" href="{{ t.home }}" aria-label="{{ site.title }}">{% include "simbolo.njk" %}</a>
 
       <div class="topo__direita">
         <nav aria-label="Principal">

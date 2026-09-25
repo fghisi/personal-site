@@ -70,6 +70,9 @@ sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegado
 | Cores, fontes e layout        | `src/css/style.css`             |
 | Cores do realce de código     | `src/css/code.css`              |
 | Estrutura HTML                | `src/_includes/layouts/`        |
+| Símbolo do topo e logo da home (SVG inline, seguem o tema) | `src/_includes/simbolo.njk` e `src/_includes/logo.njk` |
+| Arquivos originais da logo    | `src/img/logo/`                 |
+| Favicons                      | `src/favicon.ico`, `src/favicon.svg`, `src/apple-touch-icon.png` |
 
 ## Publicação
 

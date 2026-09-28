@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
 import site from "./src/_data/site.js";
@@ -25,6 +27,13 @@ export default function (eleventyConfig) {
   }
 
   eleventyConfig.addGlobalData("anoAtual", () => new Date().getFullYear());
+
+  // A hospedagem guarda CSS/JS em cache por dias. Com um hash do conteúdo na URL
+  // (/css/style.css?v=abc123), o navegador baixa a versão nova sempre que o arquivo muda.
+  eleventyConfig.addFilter("versao", (url) => {
+    const hash = createHash("sha256").update(readFileSync(`src${url}`)).digest("hex").slice(0, 10);
+    return `${url}?v=${hash}`;
+  });
   eleventyConfig.addPassthroughCopy("src/css");
   eleventyConfig.addPassthroughCopy("src/js");
   eleventyConfig.addPassthroughCopy("src/img");

@@ -77,5 +77,14 @@ sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegado
 
 ## Publicação
 
-O conteúdo de `_site/` pode ser servido por qualquer hospedagem estática
-(GitHub Pages, Netlify, Cloudflare Pages, Vercel).
+O site publicado é só o conteúdo de `_site/`, gerado pelo `npm run build`.
+Não suba a pasta do projeto inteira para a hospedagem.
+
+O deploy no Hostinger é automático: a cada push na `main`, o workflow
+`.github/workflows/deploy.yml` roda o build e envia o `_site/` por FTP. Também
+dá para rodar manualmente em **Actions → Deploy → Run workflow**.
+
+Para funcionar, cadastre no GitHub (**Settings → Secrets and variables →
+Actions**) os secrets `FTP_SERVER`, `FTP_USERNAME` e `FTP_PASSWORD`, com os
+dados de FTP do hPanel. Se a pasta de destino não for `public_html/`, crie a
+variável `FTP_DIR` com o caminho certo.

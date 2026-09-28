@@ -12,11 +12,18 @@ const salvar = (valor) => {
 
 const temaEfetivo = () => root.dataset.theme || (sistemaEscuro.matches ? "dark" : "light");
 
+const semMovimento = matchMedia("(prefers-reduced-motion: reduce)");
+const comTransicao = (mudar) => {
+  if (!document.startViewTransition || semMovimento.matches) return mudar();
+  // Uma transição interrompida (ex.: cliques seguidos) só pula a animação; o tema muda do mesmo jeito.
+  document.startViewTransition(mudar).ready.catch(() => {});
+};
+
 if (auto) {
   auto.checked = !root.dataset.theme;
   auto.addEventListener("change", () => {
     if (auto.checked) {
-      delete root.dataset.theme;
+      comTransicao(() => delete root.dataset.theme);
       salvar(null);
     } else {
       root.dataset.theme = temaEfetivo();
@@ -27,7 +34,7 @@ if (auto) {
 
 botaoTema?.addEventListener("click", () => {
   const novo = temaEfetivo() === "dark" ? "light" : "dark";
-  root.dataset.theme = novo;
+  comTransicao(() => (root.dataset.theme = novo));
   salvar(novo);
   if (auto) auto.checked = false;
 });

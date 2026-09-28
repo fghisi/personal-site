@@ -200,6 +200,37 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
   border: 3px solid var(--bg-2); box-shadow: 0 0 0 1px var(--borda);
 }
 
+/* ---------- Movimento ---------- */
+/* Transição suave entre páginas; o topo fica parado enquanto o conteúdo troca. */
+@view-transition { navigation: auto; }
+.topo { view-transition-name: topo; }
+::view-transition-old(root) { animation: 160ms ease-out both sumir; }
+::view-transition-new(root) { animation: 280ms ease-out 60ms both aparecer; }
+
+/* Entrada do conteúdo ao carregar a página. */
+main > * { animation: 420ms cubic-bezier(.2, .7, .2, 1) both surgir; }
+main > :nth-child(2) { animation-delay: 60ms; }
+main > :nth-child(n + 3) { animation-delay: 120ms; }
+
+/* Cursor de terminal depois da logo da home. */
+.logo__cursor { animation: 1.1s steps(1, end) infinite piscar; }
+
+/* Cores e sublinhados mudam com suavidade no hover. */
+a, .tema, .menu__icone { transition: color .15s ease, text-decoration-color .15s ease, text-decoration-thickness .15s ease; }
+.marca__selo { transition: transform .2s ease; }
+.marca:hover .marca__selo { transform: translateY(-1px); }
+
+@keyframes surgir { from { opacity: 0; transform: translateY(6px); } }
+@keyframes aparecer { from { opacity: 0; } }
+@keyframes sumir { to { opacity: 0; } }
+@keyframes piscar { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after, ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) {
+    animation: none !important; transition: none !important;
+  }
+}
+
 /* ---------- Rodapé ---------- */
 .rodape { border-top: 1px solid var(--borda); color: var(--fg-2); font-size: 0.875rem; }
 .rodape__linha { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.5rem; }

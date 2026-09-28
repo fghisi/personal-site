@@ -1,10 +1,11 @@
-# Caderno de Bordo
+# fghisi.com.br
 
-Blog pessoal estático gerado com [Eleventy](https://www.11ty.dev/).
+Site pessoal de Fernando Ghisi, feito para divulgar meu portfólio, artigos,
+trabalhos e projetos. É um site estático gerado com
+[Eleventy](https://www.11ty.dev/), em português e inglês.
 
-A estrutura segue o formato clássico de um blog técnico (lista de posts na home,
-arquivo por ano, tags, página "sobre", feed Atom, modo claro/escuro e realce de
-código), com design, código e textos próprios.
+Tem lista de artigos na home, arquivo por ano, tags, página "Sobre", feed Atom,
+modo claro/escuro e realce de código, com design, código e textos próprios.
 
 ## Rodando localmente
 

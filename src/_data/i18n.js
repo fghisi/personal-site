@@ -7,7 +7,7 @@ export default {
     description: "Anotações sobre programação, infraestrutura e o ofício de construir software.",
         nav: [
       { label: "Sobre", url: "/sobre/" },
-      { label: "doamor", url: "/doamor/", icone: "doamor", selo: "projeto social" },
+      { label: "amardoar", url: "/amardoar/", icone: "amardoar", selo: "projeto social" },
     ],
     tagsUrl: "/tags/",
     pular: "Pular para o conteúdo",
@@ -39,7 +39,7 @@ export default {
     description: "Notes on programming, infrastructure and the craft of building software.",
         nav: [
       { label: "About", url: "/en/about/" },
-      { label: "doamor", url: "/doamor/", icone: "doamor", selo: "social project" },
+      { label: "amardoar", url: "/amardoar/", icone: "amardoar", selo: "social project" },
     ],
     tagsUrl: "/en/tags/",
     pular: "Skip to content",

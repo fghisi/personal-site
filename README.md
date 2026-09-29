@@ -82,10 +82,10 @@ JS próprios, e são copiados como estão, sem o layout do site:
 
 | Projeto | Endereço | Pasta |
 |---------|----------|-------|
-| Doamor (MVP) | `/doamor/` | `src/doamor/` |
+| Amardoar (MVP) | `/amardoar/` | `src/amardoar/` |
 
 Para adicionar outro, crie a pasta e registre-a no `eleventy.config.js`
-(`ignores.add` e `addPassthroughCopy`), como foi feito com o Doamor.
+(`ignores.add` e `addPassthroughCopy`), como foi feito com o Amardoar.
 
 ## Publicação
 

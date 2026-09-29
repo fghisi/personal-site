@@ -1,0 +1,16 @@
+---
+permalink: /js/contador.js
+eleventyExcludeFromCollections: true
+---
+// Contagem de acessos com o GoatCounter: sem cookies e sem dados pessoais.
+// O código da conta fica em src/_data/site.js; vazio, este arquivo não faz nada.
+// O GoatCounter ignora acessos de localhost, então testes locais não entram na contagem.
+{% if site.goatcounter %}
+(() => {
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = "https://gc.zgo.at/count.js";
+  s.dataset.goatcounter = "https://{{ site.goatcounter }}.goatcounter.com/count";
+  document.head.appendChild(s);
+})();
+{% endif %}

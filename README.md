@@ -75,6 +75,21 @@ sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegado
 | Arquivos originais da logo    | `src/img/logo/`                 |
 | Favicons                      | `src/favicon.ico`, `src/favicon.svg`, `src/apple-touch-icon.png` |
 
+## Contagem de acessos
+
+O site conta acessos com o [GoatCounter](https://www.goatcounter.com/), que não
+usa cookies nem coleta dados pessoais (dispensa banner de consentimento).
+
+1. Crie uma conta em goatcounter.com e escolha um código (ex.: `fghisi`, que
+   vira `fghisi.goatcounter.com`).
+2. Coloque esse código em `goatcounter` no `src/_data/site.js`.
+3. Gere e publique o site. Os acessos aparecem no painel do GoatCounter, por
+   página (o Amardoar aparece como `/amardoar/`).
+
+Com o código vazio, nada é carregado. Acessos em `localhost` não são contados.
+O script fica em `/js/contador.js` (gerado de `src/contador.njk`) e é usado pelo
+layout do site e pela página do Amardoar.
+
 ## Projetos
 
 Projetos independentes ficam em pastas próprias dentro de `src/`, com HTML, CSS e

@@ -2,6 +2,8 @@ export default {
   title: "fghisi.com.br",
   url: "https://fghisi.com.br",
   author: { name: "Fernando Ghisi" },
+  // Código da conta no GoatCounter (o "fghisi" de fghisi.goatcounter.com). Vazio = não mede nada.
+  goatcounter: "",
   // true = home e arquivo mostram o aviso "Em construção" no lugar da lista de posts
   emConstrucao: true,
   // Ícones exibidos no topo e no rodapé (o nome do ícone vem de src/_includes/icone.njk)

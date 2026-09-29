@@ -70,6 +70,10 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
 .menu { display: flex; align-items: center; gap: 1.1rem; list-style: none; margin: 0; padding: 0; }
 .menu a { color: var(--fg-2); text-decoration: none; font-size: 0.95rem; }
 .menu a:hover, .menu a[aria-current="page"] { color: var(--fg); }
+.menu__selo {
+  margin-left: 0.3rem; padding: 0.1rem 0.45rem; border: 1px solid currentColor; border-radius: 999px;
+  color: var(--destaque); font: 500 0.68rem/1 var(--fonte-mono); letter-spacing: 0.02em; white-space: nowrap; vertical-align: 0.1em;
+}
 .menu__icone { display: inline-flex; color: var(--fg) !important; }
 .menu li:has(.menu__icone) + li:has(.menu__icone) { margin-left: -0.35rem; }
 .menu__icone:hover { color: var(--destaque) !important; }
@@ -241,10 +245,17 @@ a, .tema, .menu__icone { transition: color .15s ease, text-decoration-color .15s
   .sobre__foto { width: 120px; height: 120px; }
   .topo { position: static; }
   .topo__linha { gap: 0.6rem; }
-  .topo__direita { width: 100%; justify-content: space-between; gap: 0.75rem; }
+  /* Celular: marca e controles na primeira linha, menu inteiro na segunda. */
+  .topo__direita { display: contents; }
+  .controles { order: 1; }
+  .topo__direita nav { order: 2; width: 100%; }
   .menu { gap: 0.9rem; }
   .controles { gap: 0.75rem; }
   .post__navegacao { grid-template-columns: 1fr; }
   .vizinho--prox { grid-column: 1; }
   .prosa { font-size: 1.05rem; }
+}
+@media (max-width: 420px) {
+  .controles { gap: 0.6rem; }
+  .auto__texto { display: none; }
 }

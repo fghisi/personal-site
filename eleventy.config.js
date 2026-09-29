@@ -41,6 +41,10 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/apple-touch-icon.png");
 
+  // Projetos independentes (HTML/CSS/JS próprios): copiados como estão, sem o layout do site.
+  eleventyConfig.ignores.add("src/doamor/**");
+  eleventyConfig.addPassthroughCopy("src/doamor");
+
   const publicados = (api, lang) =>
     api.getFilteredByGlob(globs[lang]).filter((p) => !p.data.draft).reverse();
 

@@ -75,6 +75,18 @@ sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegado
 | Arquivos originais da logo    | `src/img/logo/`                 |
 | Favicons                      | `src/favicon.ico`, `src/favicon.svg`, `src/apple-touch-icon.png` |
 
+## Projetos
+
+Projetos independentes ficam em pastas próprias dentro de `src/`, com HTML, CSS e
+JS próprios, e são copiados como estão, sem o layout do site:
+
+| Projeto | Endereço | Pasta |
+|---------|----------|-------|
+| Doamor (MVP) | `/doamor/` | `src/doamor/` |
+
+Para adicionar outro, crie a pasta e registre-a no `eleventy.config.js`
+(`ignores.add` e `addPassthroughCopy`), como foi feito com o Doamor.
+
 ## Publicação
 
 O conteúdo de `_site/` pode ser servido por qualquer hospedagem estática

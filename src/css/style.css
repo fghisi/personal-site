@@ -70,6 +70,7 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
 .menu { display: flex; align-items: center; gap: 1.1rem; list-style: none; margin: 0; padding: 0; }
 .menu a { color: var(--fg-2); text-decoration: none; font-size: 0.95rem; }
 .menu a:hover, .menu a[aria-current="page"] { color: var(--fg); }
+.menu__marca { margin-right: 0.3rem; vertical-align: -0.15em; }
 .menu__selo {
   margin-left: 0.3rem; padding: 0.1rem 0.45rem; border: 1px solid currentColor; border-radius: 999px;
   color: var(--destaque); font: 500 0.68rem/1 var(--fonte-mono); letter-spacing: 0.02em; white-space: nowrap; vertical-align: 0.1em;

@@ -514,30 +514,97 @@ $("#joinForm").addEventListener("submit",e=>{
   m.textContent=`Obrigado, ${$("#f-resp").value.split(" ")[0]}! Neste protótipo o envio ainda não está conectado, mas é assim que a instituição vai confirmar o cadastro.`;
 });
 
-/* hero art: many small hearts drifting toward one — ajuda que se soma */
+/* hero art: as duas metades da logo (amar + doar) se encontram, e pequenas
+   doações chegam em curva até o coração, que pulsa a cada uma que soma. */
 (function(){
   const cv=$("#art"),ctx=cv.getContext("2d");
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let W,H,dpr,hearts=[];
+  // Metades da logo (viewBox 40x40, centro em 20,20)
+  const ESQ=new Path2D("M20 35 C8 26 3 19 3 12.5 C3 7.5 7 4 11.5 4 C15 4 18 6 20 9 Z");
+  const DIR=new Path2D("M20 35 C32 26 37 19 37 12.5 C37 7.5 33 4 28.5 4 C25 4 22 6 20 9 Z");
+  let W,H,dpr,cores={},doacoes=[],pulso=0,proxima=0,inicio=null,visivel=true,rodando=false;
+  let alvo={x:0,y:0},olhar={x:0,y:0};
   const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const lerCores=()=>{cores={goiaba:css("--goiaba"),ipe:css("--ipe"),teal:css("--teal"),soft:css("--goiaba-soft"),bg:css("--bg")}};
+  const suave=x=>1-Math.pow(1-x,3);
+  const volta=x=>{const c=1.4;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+
   function size(){dpr=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
-  function heart(x,y,s,col){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.beginPath();ctx.moveTo(0,.35);
-    ctx.bezierCurveTo(-.6,-.05,-.5,-.6,0,-.3);ctx.bezierCurveTo(.5,-.6,.6,-.05,0,.35);ctx.fillStyle=col;ctx.fill();ctx.restore()}
-  function seed(){hearts=Array.from({length:22},(_,i)=>{const a=i/22*Math.PI*2;return{a,r:.36+Math.random()*.1,s:10+Math.random()*12,sp:.0015+Math.random()*.002,c:i%3}})}
-  function draw(t){
-    ctx.clearRect(0,0,W,H);const cx=W/2,cy=H/2,m=Math.min(W,H);
-    const cols=[css("--goiaba"),css("--ipe"),css("--teal")];
-    const pulse=1+Math.sin(t/700)*.03;
-    heart(cx,cy+m*.02,m*.62*pulse,css("--goiaba-soft"));
-    heart(cx,cy+m*.02,m*.34*pulse,cols[0]);
-    hearts.forEach(h=>{const a=h.a+t*h.sp*.3;const rr=h.r+Math.sin(t/900+h.a*3)*.03;
-      ctx.globalAlpha=.9;heart(cx+Math.cos(a)*m*rr,cy+Math.sin(a)*m*rr,h.s,cols[h.c]);});
-    ctx.globalAlpha=1;
-    if(!reduce)requestAnimationFrame(draw);
+
+  // Coração da logo: duas metades com um fio separando, como no topo da página
+  function logo(x,y,tam,afasta,alfa){
+    const k=tam/40;
+    ctx.save();ctx.globalAlpha=alfa;ctx.translate(x,y);ctx.scale(k,k);ctx.translate(-20,-20);
+    ctx.save();ctx.translate(-afasta/k,0);ctx.fillStyle=cores.goiaba;ctx.fill(ESQ);ctx.restore();
+    ctx.save();ctx.translate(afasta/k,0);ctx.fillStyle=cores.ipe;ctx.fill(DIR);ctx.restore();
+    if(afasta<.5){ctx.beginPath();ctx.moveTo(20,9);ctx.lineTo(20,35);ctx.strokeStyle=cores.bg;ctx.lineWidth=1.6;ctx.stroke()}
+    ctx.restore();
   }
-  size();seed();draw(0);addEventListener("resize",()=>{size();if(reduce)draw(0)});
-  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>reduce&&draw(0));
-  addEventListener("tema",()=>reduce&&draw(0));
+  function halo(x,y,tam){const k=tam/40;ctx.save();ctx.translate(x,y);ctx.scale(k,k);ctx.translate(-20,-20);ctx.fillStyle=cores.soft;ctx.fill(ESQ);ctx.fill(DIR);ctx.restore()}
+  function mini(x,y,s,cor,alfa){ctx.save();ctx.globalAlpha=alfa;ctx.translate(x,y);ctx.scale(s,s);ctx.beginPath();ctx.moveTo(0,.35);
+    ctx.bezierCurveTo(-.6,-.05,-.5,-.6,0,-.3);ctx.bezierCurveTo(.5,-.6,.6,-.05,0,.35);ctx.fillStyle=cor;ctx.fill();ctx.restore()}
+
+  function novaDoacao(t){
+    const a=Math.random()*Math.PI*2,lado=Math.random()<.5?-1:1;
+    doacoes.push({t0:t,dur:2400+Math.random()*1400,a,curva:lado*(.5+Math.random()*.6),
+      s:10+Math.random()*11,cor:["goiaba","ipe","teal"][Math.floor(Math.random()*3)]});
+  }
+
+  function quadro(t){
+    if(inicio===null)inicio=t;
+    const e=t-inicio,m=Math.min(W,H),cx=W/2,cy=H/2+m*.03;
+    ctx.clearRect(0,0,W,H);
+
+    // olhar acompanha o ponteiro devagar
+    olhar.x+=(alvo.x-olhar.x)*.06;olhar.y+=(alvo.y-olhar.y)*.06;
+    const hx=cx+olhar.x*m*.03,hy=cy+olhar.y*m*.03;
+
+    // entrada: metades chegam de lados opostos e se encaixam
+    const pe=Math.max(0,Math.min(1,e/1300)),encaixe=volta(pe),afasta=(1-encaixe)*m*.28;
+    pulso*=.94;
+    const resp=1+Math.sin(e/900)*.012,tam=m*.42*(resp+pulso);
+
+    halo(hx,hy,m*.66*(resp+pulso*.6)*suave(pe));
+
+    // doações em curva até o centro
+    if(e>900&&e>proxima){novaDoacao(t);proxima=e+260+Math.random()*340}
+    doacoes=doacoes.filter(d=>{
+      const p=(t-d.t0)/d.dur;
+      if(p>=1){pulso=Math.min(pulso+.035,.09);return false}
+      const q=p*p,r0=m*.46,sx=cx+Math.cos(d.a)*r0,sy=cy+Math.sin(d.a)*r0;
+      const kx=(sx+hx)/2-Math.sin(d.a)*r0*d.curva*.5,ky=(sy+hy)/2+Math.cos(d.a)*r0*d.curva*.5;
+      const x=(1-q)*(1-q)*sx+2*(1-q)*q*kx+q*q*hx,y=(1-q)*(1-q)*sy+2*(1-q)*q*ky+q*q*hy;
+      const alfa=Math.min(1,p*5)*(p>.85?(1-p)/.15:1);
+      mini(x,y,d.s*(1-q*.55),cores[d.cor],alfa*.95);
+      return true;
+    });
+
+    logo(hx,hy,tam,afasta,suave(pe));
+  }
+
+  function estatico(){
+    ctx.clearRect(0,0,W,H);const m=Math.min(W,H),cx=W/2,cy=H/2+m*.03;
+    halo(cx,cy,m*.66);
+    for(let i=0;i<12;i++){const a=i/12*Math.PI*2+.3,r=m*(.4+(i%3)*.04);mini(cx+Math.cos(a)*r,cy+Math.sin(a)*r,8+(i%4)*3,cores[["goiaba","ipe","teal"][i%3]],.9)}
+    logo(cx,cy,m*.42,0,1);
+  }
+
+  function loop(t){quadro(t);if(visivel&&!document.hidden)requestAnimationFrame(loop);else rodando=false}
+  function iniciar(){if(reduce){estatico();return}if(!rodando&&visivel&&!document.hidden){rodando=true;requestAnimationFrame(loop)}}
+
+  // Pausa quando sai da tela ou a aba fica oculta, para não gastar bateria
+  new IntersectionObserver(([en])=>{visivel=en.isIntersecting;iniciar()}).observe(cv);
+  document.addEventListener("visibilitychange",iniciar);
+  cv.closest(".hero").addEventListener("pointermove",ev=>{const r=cv.getBoundingClientRect();
+    alvo.x=Math.max(-1,Math.min(1,(ev.clientX-(r.left+r.width/2))/(r.width/2)));
+    alvo.y=Math.max(-1,Math.min(1,(ev.clientY-(r.top+r.height/2))/(r.height/2)))});
+  cv.closest(".hero").addEventListener("pointerleave",()=>{alvo.x=0;alvo.y=0});
+  const recolorir=()=>{lerCores();if(reduce)estatico()};
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",recolorir);
+  addEventListener("tema",recolorir);
+  addEventListener("resize",()=>{size();if(reduce)estatico()});
+
+  size();lerCores();iniciar();
 })();
 
 renderChips(); renderGrid();

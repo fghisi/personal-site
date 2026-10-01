@@ -147,10 +147,15 @@ section{padding-block:48px;scroll-margin-top:72px}
 /* cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
 @media (max-width:400px){.grid{grid-template-columns:1fr}}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;text-align:left;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--goiaba) 40%,var(--line))}
-.card-top{display:flex;gap:12px;align-items:center}
-.avatar{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:1.1rem;flex:none}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+a.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--goiaba) 40%,var(--line))}
+.card--sem-site{cursor:default}
+a.card:hover .more{text-decoration:underline}
+.capa{height:116px;display:grid;place-items:center;padding:18px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.capa img{max-width:70%;max-height:80px;object-fit:contain}
+.capa--escura{background:#1E2A2E}
+.capa--iniciais{font-family:var(--f-display);font-weight:800;font-size:2.2rem;letter-spacing:.02em}
+.card-corpo{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
 .card h3{font-size:1.15rem;font-weight:700}
 .place{font-size:.85rem;color:var(--muted)}
 .card .desc{color:var(--muted);font-size:.95rem;min-width:0}
@@ -159,7 +164,6 @@ section{padding-block:48px;scroll-margin-top:72px}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag--sec{background:transparent!important;border:1.5px solid currentColor}
 .more{font-weight:700;color:var(--goiaba);font-size:.9rem;text-decoration:none}
-.more:hover{text-decoration:underline}
 .canais{font-size:.85rem;color:var(--muted)}
 .canais b{font-weight:600;color:var(--ink)}
 .empty{padding:40px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:18px;grid-column:1/-1}
@@ -259,29 +263,30 @@ const CAUSES = {
 // Instituições de caridade de Santa Catarina (lista de setembro de 2026).
 // causa = label principal; sec = label secundária; site = domínio oficial;
 // canais = canais oficiais quando não há site próprio confirmado.
+// logo = imagem em logos/ (tirada do site da instituição); fundo:"escuro" para logos claras.
 const ORGS = [
-  {nome:"Instituto Guga Kuerten",cidade:"Florianópolis",causa:"Educação",sec:"Crianças",site:"igk.org.br"},
-  {nome:"Instituto Padre Vilson Groh (IVG)",cidade:"Florianópolis",causa:"Educação",sec:"Crianças",site:"redeivg.org.br"},
+  {nome:"Instituto Guga Kuerten",cidade:"Florianópolis",causa:"Educação",sec:"Crianças",site:"igk.org.br",logo:"igk",fundo:"escuro"},
+  {nome:"Instituto Padre Vilson Groh (IVG)",cidade:"Florianópolis",causa:"Educação",sec:"Crianças",site:"redeivg.org.br",logo:"ivg"},
   {nome:"Casa Lar Emaús",cidade:"Florianópolis",causa:"Crianças",site:"casalaremaus.org.br"},
   {nome:"Associação de Voluntários do CEPON (AVOC)",cidade:"Florianópolis",causa:"Saúde",canais:"Instagram · Doa Floripa"},
-  {nome:"AHESC",cidade:"Florianópolis",causa:"Saúde",site:"ahesc.org.br"},
+  {nome:"AHESC",cidade:"Florianópolis",causa:"Saúde",site:"ahesc.org.br",logo:"ahesc"},
   {nome:"CUFA Florianópolis",cidade:"Florianópolis",causa:"Fome",sec:"Educação",canais:"Instagram · Doa Floripa"},
   {nome:"ONG Mais União",cidade:"Florianópolis",causa:"Fome",canais:"Facebook · Atados"},
   {nome:"ONG Autonomia",cidade:"Florianópolis",causa:"Saúde",sec:"Crianças",site:"ongautonomia.org.br"},
-  {nome:"CPDI",cidade:"Florianópolis",causa:"Educação",site:"cpdi.org.br"},
-  {nome:"Fundação Pró-Rim",cidade:"Joinville",causa:"Saúde",site:"prorim.org.br"},
+  {nome:"CPDI",cidade:"Florianópolis",causa:"Educação",site:"cpdi.org.br",logo:"cpdi"},
+  {nome:"Fundação Pró-Rim",cidade:"Joinville",causa:"Saúde",site:"prorim.org.br",logo:"prorim"},
   {nome:"Federação das APAEs de SC",cidade:"Todo o estado",causa:"Educação",sec:"Saúde",site:"feapaesc.org.br"},
-  {nome:"Rede Feminina de Combate ao Câncer de SC",cidade:"Todo o estado",causa:"Saúde",site:"redefemininasc.org.br"},
-  {nome:"Associação Sítio Dona Lúcia",cidade:"Blumenau",causa:"Animais",site:"sitiodonalucia.com.br"},
-  {nome:"Abrigo Animal de Joinville",cidade:"Joinville",causa:"Animais",site:"abrigoanimal.org.br"},
-  {nome:"Associação R3 Animal",cidade:"Florianópolis",causa:"Animais",sec:"Meio ambiente",site:"r3animal.org"},
+  {nome:"Rede Feminina de Combate ao Câncer de SC",cidade:"Todo o estado",causa:"Saúde",site:"redefemininasc.org.br",logo:"rede-feminina"},
+  {nome:"Associação Sítio Dona Lúcia",cidade:"Blumenau",causa:"Animais",site:"sitiodonalucia.com.br",logo:"sitio-dona-lucia",fundo:"escuro"},
+  {nome:"Abrigo Animal de Joinville",cidade:"Joinville",causa:"Animais",site:"abrigoanimal.org.br",logo:"abrigo-animal"},
+  {nome:"Associação R3 Animal",cidade:"Florianópolis",causa:"Animais",sec:"Meio ambiente",site:"r3animal.org",logo:"r3animal"},
   {nome:"Instituto Espaço Silvestre",cidade:"Florianópolis",causa:"Animais",sec:"Meio ambiente",site:"espacosilvestre.org.br"},
-  {nome:"Apremavi",cidade:"Atalanta",causa:"Meio ambiente",site:"apremavi.org.br"},
+  {nome:"Apremavi",cidade:"Atalanta",causa:"Meio ambiente",site:"apremavi.org.br",logo:"apremavi"},
   {nome:"Instituto Ekko Brasil (Projeto Lontra)",cidade:"Florianópolis",causa:"Meio ambiente",sec:"Animais",canais:"Facebook · LinkedIn"},
-  {nome:"CEPAGRO",cidade:"Florianópolis",causa:"Meio ambiente",sec:"Fome",site:"cepagro.org.br"},
+  {nome:"CEPAGRO",cidade:"Florianópolis",causa:"Meio ambiente",sec:"Fome",site:"cepagro.org.br",logo:"cepagro"},
   {nome:"Instituto Lixo Zero Brasil",cidade:"Florianópolis",causa:"Meio ambiente",canais:"Facebook · LinkedIn"},
   {nome:"Rede Com a Rua",cidade:"Florianópolis",causa:"Moradia",sec:"Fome",site:"redecomarua.org.br"},
-  {nome:"Habitat para a Humanidade Brasil",cidade:"Nacional",causa:"Moradia",site:"habitatbrasil.org.br"}
+  {nome:"Habitat para a Humanidade Brasil",cidade:"Nacional",causa:"Moradia",site:"habitatbrasil.org.br",logo:"habitat"}
 ];
 
 const $ = s => document.querySelector(s);
@@ -334,22 +339,26 @@ function renderGrid(){
     &&(state.cidade==="Todas"||o.cidade===state.cidade)
     &&(!q||norm([o.nome,o.cidade,o.causa,o.sec||""].join(" ")).includes(q)));
   $("#count").textContent = `${list.length} ${list.length===1?"instituição encontrada":"instituições encontradas"}`;
-  $("#grid").innerHTML = list.length ? list.map(o=>{const k=CAUSES[o.causa],k2=o.sec&&CAUSES[o.sec];return `
-    <article class="card">
-      <div class="card-top">
-        <div class="avatar" style="background:${k.bg};color:${k.c}">${esc(initials(o.nome))}</div>
+  $("#grid").innerHTML = list.length ? list.map(o=>{const k=CAUSES[o.causa],k2=o.sec&&CAUSES[o.sec];
+    const capa = o.logo
+      ? `<div class="capa${o.fundo==="escuro"?" capa--escura":""}"><img src="logos/${o.logo}.png" alt="Logo de ${esc(o.nome)}" loading="lazy" decoding="async"></div>`
+      : `<div class="capa capa--iniciais" style="background:${k.bg};color:${k.c}" aria-hidden="true">${esc(initials(o.nome))}</div>`;
+    const corpo = `
+      ${capa}
+      <div class="card-corpo">
         <div><h3>${esc(o.nome)}</h3><div class="place">${esc(lugar(o.cidade))}</div></div>
-      </div>
-      <div class="tags">
-        <span class="tag" style="background:${k.bg};color:${k.c}">${o.causa}</span>
-        ${k2?`<span class="tag tag--sec" style="color:${k2.c}">${o.sec}</span>`:""}
-      </div>
-      <div class="card-foot">
-        ${o.site
-          ? `<a class="more" href="https://${esc(o.site)}" target="_blank" rel="noopener" aria-label="Visitar o site de ${esc(o.nome)} (abre em nova aba)">${esc(o.site)} ↗</a>`
-          : `<span class="canais"><b>Canais oficiais:</b> ${esc(o.canais)}</span>`}
-      </div>
-    </article>`}).join("") : `<div class="empty">Nenhuma instituição com esses filtros ainda. Tente outra causa ou cidade.</div>`;
+        <div class="tags">
+          <span class="tag" style="background:${k.bg};color:${k.c}">${o.causa}</span>
+          ${k2?`<span class="tag tag--sec" style="color:${k2.c}">${o.sec}</span>`:""}
+        </div>
+        <div class="card-foot">
+          ${o.site ? `<span class="more">${esc(o.site)} ↗</span>` : `<span class="canais"><b>Canais oficiais:</b> ${esc(o.canais)}</span>`}
+        </div>
+      </div>`;
+    return o.site
+      ? `<a class="card" href="https://${esc(o.site)}" target="_blank" rel="noopener" aria-label="${esc(o.nome)}, ${esc(lugar(o.cidade))}. Abrir o site em nova aba">${corpo}</a>`
+      : `<article class="card card--sem-site">${corpo}</article>`;
+  }).join("") : `<div class="empty">Nenhuma instituição com esses filtros ainda. Tente outra causa ou cidade.</div>`;
 }
 
 $("#heroSearch").addEventListener("submit",e=>{e.preventDefault();state.q=$("#q").value;renderGrid();$("#instituicoes").scrollIntoView({behavior:"smooth"})});

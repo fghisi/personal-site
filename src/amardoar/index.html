@@ -160,9 +160,9 @@ a.card:hover .more{text-decoration:underline}
 .place{font-size:.85rem;color:var(--muted)}
 .card .desc{color:var(--muted);font-size:.95rem;min-width:0}
 .card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:8px}
-.tag{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+.tag{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;color:var(--muted);background:color-mix(in srgb,var(--ink) 6%,transparent);border:1.5px solid transparent}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
-.tag--sec{background:transparent!important;border:1.5px solid currentColor}
+.tag--sec{background:transparent;border-color:var(--line)}
 .more{font-weight:700;color:var(--goiaba);font-size:.9rem;text-decoration:none}
 .canais{font-size:.85rem;color:var(--muted)}
 .canais b{font-weight:600;color:var(--ink)}
@@ -339,7 +339,7 @@ function renderGrid(){
     &&(state.cidade==="Todas"||o.cidade===state.cidade)
     &&(!q||norm([o.nome,o.cidade,o.causa,o.sec||""].join(" ")).includes(q)));
   $("#count").textContent = `${list.length} ${list.length===1?"instituição encontrada":"instituições encontradas"}`;
-  $("#grid").innerHTML = list.length ? list.map(o=>{const k=CAUSES[o.causa],k2=o.sec&&CAUSES[o.sec];
+  $("#grid").innerHTML = list.length ? list.map(o=>{const k=CAUSES[o.causa];
     const capa = o.logo
       ? `<div class="capa${o.fundo==="escuro"?" capa--escura":""}"><img src="logos/${o.logo}.png" alt="Logo de ${esc(o.nome)}" loading="lazy" decoding="async"></div>`
       : `<div class="capa capa--iniciais" style="background:${k.bg};color:${k.c}" aria-hidden="true">${esc(initials(o.nome))}</div>`;
@@ -348,8 +348,8 @@ function renderGrid(){
       <div class="card-corpo">
         <div><h3>${esc(o.nome)}</h3><div class="place">${esc(lugar(o.cidade))}</div></div>
         <div class="tags">
-          <span class="tag" style="background:${k.bg};color:${k.c}">${o.causa}</span>
-          ${k2?`<span class="tag tag--sec" style="color:${k2.c}">${o.sec}</span>`:""}
+          <span class="tag">${o.causa}</span>
+          ${o.sec?`<span class="tag tag--sec">${o.sec}</span>`:""}
         </div>
         <div class="card-foot">
           ${o.site ? `<span class="more">${esc(o.site)} ↗</span>` : `<span class="canais"><b>Canais oficiais:</b> ${esc(o.canais)}</span>`}

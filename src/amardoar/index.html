@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>amardoar · Toda doação começa com amor</title>
+<meta name="description" content="Encontre instituições de caridade de Santa Catarina por causa e cidade e ajude direto pelos canais oficiais de cada uma.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 35 C8 26 3 19 3 12.5 C3 7.5 7 4 11.5 4 C15 4 18 6 20 9 Z' fill='%23D93A6E'/%3E%3Cpath d='M20 35 C32 26 37 19 37 12.5 C37 7.5 33 4 28.5 4 C25 4 22 6 20 9 Z' fill='%23F2B01E'/%3E%3C/svg%3E">
+<script>
+  try {
+    const t = localStorage.getItem("tema");
+    if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+  } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;padding:0}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
+
+/* Layout: warm community board — goiaba-pink heart as the one bold note, ipê-yellow as the helping hand, ink-teal for trust. */
+:root{
+  --bg:#FBF6F7;
+  --surface:#FFFFFF;
+  --ink:#16323B;
+  --muted:#5E6F75;
+  --line:#EADDE1;
+  --goiaba:#D93A6E;
+  --goiaba-soft:#FBE3EB;
+  --ipe:#F2B01E;
+  --ipe-soft:#FDF1D3;
+  --teal:#1E6B73;
+  --teal-soft:#DCEEEF;
+  --on-accent:#FFFFFF;
+  --shadow:0 1px 2px rgba(22,50,59,.06),0 8px 24px rgba(22,50,59,.06);
+  --f-display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12181B;--surface:#1A2226;--ink:#EEF2F1;--muted:#9EAEB2;--line:#2A363B;
+  --goiaba:#F0628F;--goiaba-soft:#3A1E29;--ipe:#F5C04A;--ipe-soft:#3A3120;--teal:#6CC3CA;--teal-soft:#1C3538;
+  --on-accent:#12181B;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12181B;--surface:#1A2226;--ink:#EEF2F1;--muted:#9EAEB2;--line:#2A363B;
+  --goiaba:#F0628F;--goiaba-soft:#3A1E29;--ipe:#F5C04A;--ipe-soft:#3A3120;--teal:#6CC3CA;--teal-soft:#1C3538;
+  --on-accent:#12181B;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;padding-inline:16px}
+.wrap{max-width:1120px;margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);line-height:1.1;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--goiaba);outline-offset:2px;border-radius:6px}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);margin-inline:-16px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo svg{width:34px;height:34px;flex:none}
+.logo span{font-family:var(--f-display);font-weight:800;font-size:1.55rem;letter-spacing:-.02em}
+.logo b{color:var(--goiaba);font-weight:800}
+nav{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+nav a{text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 12px;border-radius:999px;color:var(--muted)}
+nav a:hover{background:var(--goiaba-soft);color:var(--ink)}
+nav a.cta{background:var(--ink);color:var(--bg)}
+@media (max-width:640px){nav a:not(.cta){display:none}}
+.direita{display:flex;align-items:center;gap:12px}
+
+/* tema: "auto" segue o sistema; sol/lua escolhe manualmente */
+.controles{display:flex;align-items:center;gap:10px}
+.auto{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.auto__input{position:absolute;opacity:0;width:1px;height:1px}
+.auto__trilho{width:2.1rem;height:1.2rem;border-radius:999px;background:var(--line);position:relative;transition:background .2s}
+.auto__trilho::after{content:"";position:absolute;top:.15rem;left:.15rem;width:.9rem;height:.9rem;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .2s}
+.auto__input:checked+.auto__trilho{background:var(--goiaba)}
+.auto__input:checked+.auto__trilho::after{transform:translateX(.9rem)}
+.auto__input:focus-visible+.auto__trilho{outline:3px solid var(--goiaba);outline-offset:2px}
+.auto__texto{font-size:.75rem;font-weight:600;color:var(--muted)}
+.tema{display:inline-flex;align-items:center;justify-content:center;background:none;border:0;padding:6px;border-radius:999px;color:var(--ink);cursor:pointer}
+.tema:hover{background:var(--goiaba-soft)}
+.tema__lua{display:none}
+:root[data-theme="dark"] .tema__sol{display:none}
+:root[data-theme="dark"] .tema__lua{display:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tema__sol{display:none}:root:not([data-theme="light"]) .tema__lua{display:block}}
+.visualmente-oculto{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+nav a.cta{white-space:nowrap}
+@media (max-width:420px){
+  .auto__texto{display:none}
+  .top .wrap,.direita{gap:8px}
+  .logo svg{width:28px;height:28px}
+  .logo span{font-size:1.3rem}
+}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding-block:56px 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--teal-soft);padding:6px 12px;border-radius:999px}
+.hero h1{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;letter-spacing:-.035em;margin-top:18px}
+.hero h1 em{font-style:normal;color:var(--goiaba);position:relative;white-space:nowrap}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.16em;background:var(--ipe);border-radius:4px;z-index:-1;opacity:.85}
+.hero .lede{font-size:1.15rem;color:var(--muted);max-width:52ch;margin-top:18px}
+.search{display:flex;gap:8px;margin-top:28px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:var(--shadow);max-width:560px}
+.search input{flex:1;min-width:0;border:0;background:transparent;padding:12px 14px;font-size:1rem}
+.search input:focus{outline:none}
+.search:focus-within{border-color:var(--goiaba)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-weight:700;border-radius:12px;padding:12px 20px;text-decoration:none;transition:transform .15s ease,background .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--goiaba);color:var(--on-accent)}
+.btn-primary:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink)}
+.hero-art{position:relative;aspect-ratio:1;max-width:100%}
+.hero-art canvas{width:100%;height:100%;display:block}
+@media (max-width:820px){.hero{grid-template-columns:1fr;padding-block:36px 24px}.hero-art{max-width:300px;margin-inline:auto;order:-1}}
+
+/* por que */
+.porque{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:start}
+@media (max-width:760px){.porque{grid-template-columns:1fr;gap:16px}}
+.porque h2{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.02em}
+.porque__texto{border-left:4px solid var(--goiaba);padding:4px 0 4px 22px;display:grid;gap:14px;font-size:1.08rem}
+.porque__destaque{font-family:var(--f-display);font-weight:700;font-size:1.25rem;line-height:1.3}
+.porque__destaque em{font-style:normal;color:var(--goiaba)}
+.porque__assinatura{color:var(--muted);font-size:.95rem}
+.porque__nota{grid-column:1/-1;font-size:.9rem;color:var(--muted);background:var(--teal-soft);border-radius:14px;padding:14px 18px}
+
+/* section heads */
+section{padding-block:48px;scroll-margin-top:72px}
+.shead{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.shead h2{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.02em}
+.shead p{color:var(--muted);max-width:56ch;margin-top:8px}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:20px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:.9rem;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.filters select{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-weight:600;font-size:.9rem;margin-left:auto}
+@media (max-width:640px){.filters select{margin-left:0}}
+.count{font-size:.9rem;color:var(--muted);margin-bottom:16px;font-variant-numeric:tabular-nums}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+@media (max-width:400px){.grid{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;text-align:left;text-decoration:none;color:inherit;transition:transform .18s ease,box-shadow .18s ease,border-color .18s}
+a.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:color-mix(in srgb,var(--goiaba) 40%,var(--line))}
+.card--sem-site{cursor:default}
+a.card:hover .more{text-decoration:underline}
+.capa{height:116px;display:grid;place-items:center;padding:18px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.capa img{max-width:70%;max-height:80px;object-fit:contain}
+.capa--escura{background:#1E2A2E}
+.capa--iniciais{font-family:var(--f-display);font-weight:800;font-size:2.2rem;letter-spacing:.02em}
+.card-corpo{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font-size:1.15rem;font-weight:700}
+.place{font-size:.85rem;color:var(--muted)}
+.card .desc{color:var(--muted);font-size:.95rem;min-width:0}
+.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:8px}
+.tag{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px;color:var(--muted);background:color-mix(in srgb,var(--ink) 6%,transparent);border:1.5px solid transparent}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag--sec{background:transparent;border-color:var(--line)}
+.more{font-weight:700;color:var(--goiaba);font-size:.9rem;text-decoration:none}
+.canais{font-size:.85rem;color:var(--muted)}
+.canais b{font-weight:600;color:var(--ink)}
+.empty{padding:40px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:18px;grid-column:1/-1}
+
+footer{padding-block:40px 56px;color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:24px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="amardoar, início">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 35 C8 26 3 19 3 12.5 C3 7.5 7 4 11.5 4 C15 4 18 6 20 9 Z" fill="var(--goiaba)"/>
+        <path d="M20 35 C32 26 37 19 37 12.5 C37 7.5 33 4 28.5 4 C25 4 22 6 20 9 Z" fill="var(--ipe)"/>
+        <path d="M20 9 L20 35" stroke="var(--bg)" stroke-width="1.6"/>
+      </svg>
+      <span>amar<b>doar</b></span>
+    </a>
+    <div class="direita">
+      <nav aria-label="Principal">
+        <a href="#porque" data-ga="clique_menu_amardoar" data-ga-item="Por que existe">Por que existe</a>
+        <a class="cta" href="#instituicoes" data-ga="clique_menu_amardoar" data-ga-item="Instituições">Instituições</a>
+      </nav>
+      <div class="controles">
+        <label class="auto" title="Seguir o tema do sistema">
+          <input class="auto__input" type="checkbox" role="switch" checked>
+          <span class="auto__trilho" aria-hidden="true"></span>
+          <span class="auto__texto">auto</span>
+          <span class="visualmente-oculto">Seguir o tema do sistema</span>
+        </label>
+        <button class="tema" type="button" aria-label="Alternar tema claro/escuro" title="Alternar tema claro/escuro">
+          <svg class="tema__sol" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="tema__lua" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="inicio">
+  <div class="hero">
+    <div>
+      <span class="eyebrow">Amor ao próximo, em rede</span>
+      <h1>Toda doação começa com <em>amor</em>.</h1>
+      <p class="lede">Encontre instituições de caridade de Santa Catarina pela causa que toca você e pela sua cidade, e ajude direto pelos canais oficiais de cada uma.</p>
+      <form class="search" id="heroSearch" role="search">
+        <input id="q" type="search" placeholder="Busque por causa, cidade ou instituição" aria-label="Buscar instituições">
+        <button class="btn btn-primary" type="submit">Encontrar</button>
+      </form>
+    </div>
+    <div class="hero-art" aria-hidden="true"><canvas id="art"></canvas></div>
+  </div>
+
+  <section id="porque" class="porque">
+    <h2>Por que o amardoar existe</h2>
+    <div class="porque__texto">
+      <p>O amardoar é uma ideia minha para aproximar quem quer doar de quem cuida. Muita gente tem vontade de ajudar, mas não sabe por onde começar nem quem procurar. Aqui as instituições estão reunidas por causa e por cidade, para que você encontre com facilidade a que mais combina com você e fale direto com ela.</p>
+      <p>Neste momento, o amardoar está focado em <strong>Santa Catarina</strong>.</p>
+      <p class="porque__destaque">Este projeto é o meu <em>amor ao próximo</em> transformado em ação.</p>
+      <p class="porque__assinatura">Fernando Ghisi</p>
+    </div>
+    <p class="porque__nota">O amardoar não recebe doações e não tem vínculo com as instituições listadas. Os links levam aos sites e canais oficiais de cada uma, e toda ajuda é combinada diretamente com elas.</p>
+  </section>
+
+  <section id="instituicoes">
+    <div class="shead">
+      <div>
+        <h2>Instituições</h2>
+        <p>Filtre pela causa que toca você e pela cidade onde a instituição atua.</p>
+      </div>
+    </div>
+    <div class="filters" id="chips" role="group" aria-label="Filtrar por causa"></div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <footer>
+    <span><strong>amardoar</strong> · Toda doação começa com amor.</span>
+    <span>Um projeto de <a href="/">Fernando Ghisi</a> · Santa Catarina · <a href="#" data-preferencias-cookies>Cookies</a></span>
+  </footer>
+</main>
+
+<script>
+const CAUSES = {
+  "Fome":{c:"var(--goiaba)",bg:"var(--goiaba-soft)"},
+  "Crianças":{c:"var(--ipe)",bg:"var(--ipe-soft)"},
+  "Animais":{c:"var(--teal)",bg:"var(--teal-soft)"},
+  "Idosos":{c:"var(--goiaba)",bg:"var(--goiaba-soft)"},
+  "Educação":{c:"var(--teal)",bg:"var(--teal-soft)"},
+  "Saúde":{c:"var(--ipe)",bg:"var(--ipe-soft)"},
+  "Meio ambiente":{c:"var(--teal)",bg:"var(--teal-soft)"},
+  "Moradia":{c:"var(--goiaba)",bg:"var(--goiaba-soft)"}
+};
+// Instituições de caridade de Santa Catarina (lista de setembro de 2026).
+// causa = label principal; sec = label secundária; site = domínio oficial;
+// canais = canais oficiais quando não há site próprio confirmado.
+// logo = imagem em logos/ (tirada do site da instituição); fundo:"escuro" para logos claras.
+const ORGS = [
+  {nome:"Instituto Guga Kuerten",cidade:"Florianópolis",causa:"Educação",sec:"Crianças",site:"igk.org.br",logo:"igk",fundo:"escuro"},
+  {nome:"Instituto Padre Vilson Groh (IVG)",cidade:"Florianópolis",causa:"Educação",sec:"Crianças",site:"redeivg.org.br",logo:"ivg"},
+  {nome:"Casa Lar Emaús",cidade:"Florianópolis",causa:"Crianças",site:"casalaremaus.org.br"},
+  {nome:"Associação de Voluntários do CEPON (AVOC)",cidade:"Florianópolis",causa:"Saúde",canais:"Instagram · Doa Floripa"},
+  {nome:"AHESC",cidade:"Florianópolis",causa:"Saúde",site:"ahesc.org.br",logo:"ahesc"},
+  {nome:"CUFA Florianópolis",cidade:"Florianópolis",causa:"Fome",sec:"Educação",canais:"Instagram · Doa Floripa"},
+  {nome:"ONG Mais União",cidade:"Florianópolis",causa:"Fome",canais:"Facebook · Atados"},
+  {nome:"ONG Autonomia",cidade:"Florianópolis",causa:"Saúde",sec:"Crianças",site:"ongautonomia.org.br"},
+  {nome:"CPDI",cidade:"Florianópolis",causa:"Educação",site:"cpdi.org.br",logo:"cpdi"},
+  {nome:"Fundação Pró-Rim",cidade:"Joinville",causa:"Saúde",site:"prorim.org.br",logo:"prorim"},
+  {nome:"Federação das APAEs de SC",cidade:"Todo o estado",causa:"Educação",sec:"Saúde",site:"feapaesc.org.br"},
+  {nome:"Rede Feminina de Combate ao Câncer de SC",cidade:"Todo o estado",causa:"Saúde",site:"redefemininasc.org.br",logo:"rede-feminina"},
+  {nome:"Associação Sítio Dona Lúcia",cidade:"Blumenau",causa:"Animais",site:"sitiodonalucia.com.br",logo:"sitio-dona-lucia",fundo:"escuro"},
+  {nome:"Abrigo Animal de Joinville",cidade:"Joinville",causa:"Animais",site:"abrigoanimal.org.br",logo:"abrigo-animal"},
+  {nome:"Associação R3 Animal",cidade:"Florianópolis",causa:"Animais",sec:"Meio ambiente",site:"r3animal.org",logo:"r3animal"},
+  {nome:"Instituto Espaço Silvestre",cidade:"Florianópolis",causa:"Animais",sec:"Meio ambiente",site:"espacosilvestre.org.br"},
+  {nome:"Apremavi",cidade:"Atalanta",causa:"Meio ambiente",site:"apremavi.org.br",logo:"apremavi"},
+  {nome:"Instituto Ekko Brasil (Projeto Lontra)",cidade:"Florianópolis",causa:"Meio ambiente",sec:"Animais",canais:"Facebook · LinkedIn"},
+  {nome:"CEPAGRO",cidade:"Florianópolis",causa:"Meio ambiente",sec:"Fome",site:"cepagro.org.br",logo:"cepagro"},
+  {nome:"Instituto Lixo Zero Brasil",cidade:"Florianópolis",causa:"Meio ambiente",canais:"Facebook · LinkedIn"},
+  {nome:"Rede Com a Rua",cidade:"Florianópolis",causa:"Moradia",sec:"Fome",site:"redecomarua.org.br"},
+  {nome:"Habitat para a Humanidade Brasil",cidade:"Nacional",causa:"Moradia",site:"habitatbrasil.org.br",logo:"habitat"}
+];
+
+const $ = s => document.querySelector(s);
+// Eventos do Google Analytics (definido em /js/analytics.js; sem consentimento, não faz nada)
+const medir = (nome, params) => window.medir?.(nome, params);
+let buscou = false;
+
+/* tema: mesma lógica e mesma preferência salva ("tema") do site pessoal */
+(function(){
+  const root=document.documentElement;
+  const sistemaEscuro=matchMedia("(prefers-color-scheme: dark)");
+  const auto=$(".auto__input"), botao=$(".tema");
+  const salvar=v=>{try{v?localStorage.setItem("tema",v):localStorage.removeItem("tema")}catch(e){}};
+  const efetivo=()=>root.dataset.theme||(sistemaEscuro.matches?"dark":"light");
+  const avisar=()=>dispatchEvent(new Event("tema"));
+  auto.checked=!root.dataset.theme;
+  auto.addEventListener("change",()=>{
+    if(auto.checked){delete root.dataset.theme;salvar(null)}
+    else{root.dataset.theme=efetivo();salvar(root.dataset.theme)}
+    avisar();
+  });
+  botao.addEventListener("click",()=>{
+    const novo=efetivo()==="dark"?"light":"dark";
+    root.dataset.theme=novo;salvar(novo);auto.checked=false;avisar();
+  });
+})();
+const state = {cause:"Todas", cidade:"Todas", q:""};
+const GENERICAS = new Set(["instituto","associacao","ong","fundacao","federacao","rede","de","da","do","das","dos","para","a","com"]);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+const initials = n => {
+  const p = n.replace(/\(.*?\)/g,"").split(/\s+/).filter(w=>w&&!GENERICAS.has(norm(w)));
+  return (p.length===1 ? p[0].slice(0,2) : p.slice(0,2).map(w=>w[0]).join("")).toUpperCase();
+};
+const lugar = c => c==="Todo o estado" ? "Todo o estado de SC" : c==="Nacional" ? "Atuação nacional" : `${c}, SC`;
+const ESPECIAIS = ["Todo o estado","Nacional"];
+
+function renderChips(){
+  // Só mostra causas que têm instituições (como label principal ou secundária)
+  const usadas = new Set(ORGS.flatMap(o=>[o.causa,o.sec].filter(Boolean)));
+  const causes = ["Todas",...Object.keys(CAUSES).filter(c=>usadas.has(c))];
+  const cidades = [...new Set(ORGS.map(o=>o.cidade))];
+  const ordem = [...cidades.filter(c=>!ESPECIAIS.includes(c)).sort((a,b)=>a.localeCompare(b,"pt-BR")),...ESPECIAIS.filter(c=>cidades.includes(c))];
+  $("#chips").innerHTML = causes.map(c=>`<button class="chip" type="button" data-cause="${c}" aria-pressed="${state.cause===c}">${c!=="Todas"?`<span class="dot" style="background:${CAUSES[c].c}"></span>`:""}${c}</button>`).join("")
+    + `<select id="cidade" aria-label="Filtrar por cidade"><option value="Todas">Todas as cidades</option>${ordem.map(c=>`<option value="${c}" ${state.cidade===c?"selected":""}>${c}</option>`).join("")}</select>`;
+  $("#chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{state.cause=b.dataset.cause;renderChips();renderGrid();medir("filtro_causa",{causa:state.cause})});
+  $("#cidade").onchange=e=>{state.cidade=e.target.value;renderGrid();medir("filtro_cidade",{cidade:state.cidade})};
+}
+
+function renderGrid(){
+  const q = norm(state.q.trim());
+  const list = ORGS.filter(o=>(state.cause==="Todas"||o.causa===state.cause||o.sec===state.cause)
+    &&(state.cidade==="Todas"||o.cidade===state.cidade)
+    &&(!q||norm([o.nome,o.cidade,o.causa,o.sec||""].join(" ")).includes(q)));
+  $("#count").textContent = `${list.length} ${list.length===1?"instituição encontrada":"instituições encontradas"}`;
+  $("#grid").innerHTML = list.length ? list.map(o=>{const k=CAUSES[o.causa];
+    const capa = o.logo
+      ? `<div class="capa${o.fundo==="escuro"?" capa--escura":""}"><img src="logos/${o.logo}.png" alt="Logo de ${esc(o.nome)}" loading="lazy" decoding="async"></div>`
+      : `<div class="capa capa--iniciais" style="background:${k.bg};color:${k.c}" aria-hidden="true">${esc(initials(o.nome))}</div>`;
+    const corpo = `
+      ${capa}
+      <div class="card-corpo">
+        <div><h3>${esc(o.nome)}</h3><div class="place">${esc(lugar(o.cidade))}</div></div>
+        <div class="tags">
+          <span class="tag">${o.causa}</span>
+          ${o.sec?`<span class="tag tag--sec">${o.sec}</span>`:""}
+        </div>
+        <div class="card-foot">
+          ${o.site ? `<span class="more">${esc(o.site)} ↗</span>` : `<span class="canais"><b>Canais oficiais:</b> ${esc(o.canais)}</span>`}
+        </div>
+      </div>`;
+    return o.site
+      ? `<a class="card" href="https://${esc(o.site)}" target="_blank" rel="noopener" data-ga="clique_instituicao" data-ga-instituicao="${esc(o.nome)}" data-ga-causa="${esc(o.causa)}" data-ga-cidade="${esc(o.cidade)}" aria-label="${esc(o.nome)}, ${esc(lugar(o.cidade))}. Abrir o site em nova aba">${corpo}</a>`
+      : `<article class="card card--sem-site">${corpo}</article>`;
+  }).join("") : `<div class="empty">Nenhuma instituição com esses filtros ainda. Tente outra causa ou cidade.</div>`;
+}
+
+$("#heroSearch").addEventListener("submit",e=>{e.preventDefault();state.q=$("#q").value;renderGrid();$("#instituicoes").scrollIntoView({behavior:"smooth"})});
+$("#q").addEventListener("input",e=>{state.q=e.target.value;renderGrid();
+  // Conta que a busca foi usada (uma vez por visita), sem enviar o texto digitado
+  if(!buscou&&state.q.trim().length>=3){buscou=true;medir("busca_usada")}});
+
+/* hero art: as duas metades da logo (amar + doar) se encontram, e pequenas
+   doações chegam em curva até o coração, que pulsa a cada uma que soma. */
+(function(){
+  const cv=$("#art"),ctx=cv.getContext("2d");
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Metades da logo (viewBox 40x40, centro em 20,20)
+  const ESQ=new Path2D("M20 35 C8 26 3 19 3 12.5 C3 7.5 7 4 11.5 4 C15 4 18 6 20 9 Z");
+  const DIR=new Path2D("M20 35 C32 26 37 19 37 12.5 C37 7.5 33 4 28.5 4 C25 4 22 6 20 9 Z");
+  let W,H,dpr,cores={},doacoes=[],pulso=0,proxima=0,inicio=null,visivel=true,rodando=false;
+  let alvo={x:0,y:0},olhar={x:0,y:0};
+  const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const lerCores=()=>{cores={goiaba:css("--goiaba"),ipe:css("--ipe"),teal:css("--teal"),soft:css("--goiaba-soft"),bg:css("--bg")}};
+  const suave=x=>1-Math.pow(1-x,3);
+  const volta=x=>{const c=1.4;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+
+  function size(){dpr=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+
+  // Coração da logo: duas metades com um fio separando, como no topo da página
+  function logo(x,y,tam,afasta,alfa){
+    const k=tam/40;
+    ctx.save();ctx.globalAlpha=alfa;ctx.translate(x,y);ctx.scale(k,k);ctx.translate(-20,-20);
+    ctx.save();ctx.translate(-afasta/k,0);ctx.fillStyle=cores.goiaba;ctx.fill(ESQ);ctx.restore();
+    ctx.save();ctx.translate(afasta/k,0);ctx.fillStyle=cores.ipe;ctx.fill(DIR);ctx.restore();
+    if(afasta<.5){ctx.beginPath();ctx.moveTo(20,9);ctx.lineTo(20,35);ctx.strokeStyle=cores.bg;ctx.lineWidth=1.6;ctx.stroke()}
+    ctx.restore();
+  }
+  function halo(x,y,tam){const k=tam/40;ctx.save();ctx.translate(x,y);ctx.scale(k,k);ctx.translate(-20,-20);ctx.fillStyle=cores.soft;ctx.fill(ESQ);ctx.fill(DIR);ctx.restore()}
+  function mini(x,y,s,cor,alfa){ctx.save();ctx.globalAlpha=alfa;ctx.translate(x,y);ctx.scale(s,s);ctx.beginPath();ctx.moveTo(0,.35);
+    ctx.bezierCurveTo(-.6,-.05,-.5,-.6,0,-.3);ctx.bezierCurveTo(.5,-.6,.6,-.05,0,.35);ctx.fillStyle=cor;ctx.fill();ctx.restore()}
+
+  function novaDoacao(t){
+    const a=Math.random()*Math.PI*2,lado=Math.random()<.5?-1:1;
+    doacoes.push({t0:t,dur:2400+Math.random()*1400,a,curva:lado*(.5+Math.random()*.6),
+      s:10+Math.random()*11,cor:["goiaba","ipe","teal"][Math.floor(Math.random()*3)]});
+  }
+
+  function quadro(t){
+    if(inicio===null)inicio=t;
+    const e=t-inicio,m=Math.min(W,H),cx=W/2,cy=H/2+m*.03;
+    ctx.clearRect(0,0,W,H);
+
+    // olhar acompanha o ponteiro devagar
+    olhar.x+=(alvo.x-olhar.x)*.06;olhar.y+=(alvo.y-olhar.y)*.06;
+    const hx=cx+olhar.x*m*.03,hy=cy+olhar.y*m*.03;
+
+    // entrada: metades chegam de lados opostos e se encaixam
+    const pe=Math.max(0,Math.min(1,e/1300)),encaixe=volta(pe),afasta=(1-encaixe)*m*.28;
+    pulso*=.94;
+    const resp=1+Math.sin(e/900)*.012,tam=m*.42*(resp+pulso);
+
+    halo(hx,hy,m*.66*(resp+pulso*.6)*suave(pe));
+
+    // doações em curva até o centro
+    if(e>900&&e>proxima){novaDoacao(t);proxima=e+260+Math.random()*340}
+    doacoes=doacoes.filter(d=>{
+      const p=(t-d.t0)/d.dur;
+      if(p>=1){pulso=Math.min(pulso+.035,.09);return false}
+      const q=p*p,r0=m*.46,sx=cx+Math.cos(d.a)*r0,sy=cy+Math.sin(d.a)*r0;
+      const kx=(sx+hx)/2-Math.sin(d.a)*r0*d.curva*.5,ky=(sy+hy)/2+Math.cos(d.a)*r0*d.curva*.5;
+      const x=(1-q)*(1-q)*sx+2*(1-q)*q*kx+q*q*hx,y=(1-q)*(1-q)*sy+2*(1-q)*q*ky+q*q*hy;
+      const alfa=Math.min(1,p*5)*(p>.85?(1-p)/.15:1);
+      mini(x,y,d.s*(1-q*.55),cores[d.cor],alfa*.95);
+      return true;
+    });
+
+    logo(hx,hy,tam,afasta,suave(pe));
+  }
+
+  function estatico(){
+    ctx.clearRect(0,0,W,H);const m=Math.min(W,H),cx=W/2,cy=H/2+m*.03;
+    halo(cx,cy,m*.66);
+    for(let i=0;i<12;i++){const a=i/12*Math.PI*2+.3,r=m*(.4+(i%3)*.04);mini(cx+Math.cos(a)*r,cy+Math.sin(a)*r,8+(i%4)*3,cores[["goiaba","ipe","teal"][i%3]],.9)}
+    logo(cx,cy,m*.42,0,1);
+  }
+
+  function loop(t){quadro(t);if(visivel&&!document.hidden)requestAnimationFrame(loop);else rodando=false}
+  function iniciar(){if(reduce){estatico();return}if(!rodando&&visivel&&!document.hidden){rodando=true;requestAnimationFrame(loop)}}
+
+  // Pausa quando sai da tela ou a aba fica oculta, para não gastar bateria
+  new IntersectionObserver(([en])=>{visivel=en.isIntersecting;iniciar()}).observe(cv);
+  document.addEventListener("visibilitychange",iniciar);
+  cv.closest(".hero").addEventListener("pointermove",ev=>{const r=cv.getBoundingClientRect();
+    alvo.x=Math.max(-1,Math.min(1,(ev.clientX-(r.left+r.width/2))/(r.width/2)));
+    alvo.y=Math.max(-1,Math.min(1,(ev.clientY-(r.top+r.height/2))/(r.height/2)))});
+  cv.closest(".hero").addEventListener("pointerleave",()=>{alvo.x=0;alvo.y=0});
+  const recolorir=()=>{lerCores();if(reduce)estatico()};
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",recolorir);
+  addEventListener("tema",recolorir);
+  addEventListener("resize",()=>{size();if(reduce)estatico()});
+
+  size();lerCores();iniciar();
+})();
+
+renderChips(); renderGrid();
+</script>
+<script src="/js/analytics.js" defer></script>
+
+</body>
+</html>

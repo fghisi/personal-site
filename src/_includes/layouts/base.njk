@@ -24,8 +24,8 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:image" content="{{ site.url }}/img/logo/icon-512.png">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/code.css">
+  <link rel="stylesheet" href="{{ '/css/style.css' | versao }}">
+  <link rel="stylesheet" href="{{ '/css/code.css' | versao }}">
 </head>
 <body>
   <a class="pular" href="#conteudo">{{ t.pular }}</a>
@@ -37,11 +37,11 @@
         <nav aria-label="Principal">
           <ul class="menu">
             {% for item in t.nav %}
-            <li><a href="{{ item.url }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+            <li><a href="{{ item.url }}" data-ga="clique_menu" data-ga-item="{{ item.label }}"{% if page.url == item.url %} aria-current="page"{% endif %}>{% if item.icone %}{% set nome = item.icone %}{% include "icone.njk" %}{% endif %}{{ item.label }}{% if item.selo %} <span class="menu__selo">{{ item.selo }}</span>{% endif %}</a></li>
             {% endfor %}
             {% for s in site.social %}
             <li>
-              <a class="menu__icone" href="{{ s.url }}" aria-label="{{ s.label }}" title="{{ s.label }}" rel="me noopener" target="_blank">{% set nome = s.icon %}{% include "icone.njk" %}</a>
+              <a class="menu__icone" href="{{ s.url }}" data-ga="clique_rede_social" data-ga-rede="{{ s.label }}" aria-label="{{ s.label }}" title="{{ s.label }}" rel="me noopener" target="_blank">{% set nome = s.icon %}{% include "icone.njk" %}</a>
             </li>
             {% endfor %}
           </ul>
@@ -77,8 +77,10 @@
   <footer class="rodape">
     <div class="container rodape__linha">
       <p>{{ anoAtual }} - {{ site.author.name }} - {{ t.direitos }}</p>
+      {% if site.ga4 %}<p><a href="#" data-preferencias-cookies>Cookies</a></p>{% endif %}
     </div>
   </footer>
-  <script src="/js/main.js" defer></script>
+  <script src="{{ '/js/main.js' | versao }}" defer></script>
+  <script src="/js/analytics.js" defer></script>
 </body>
 </html>

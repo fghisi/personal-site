@@ -1,18 +1,20 @@
-# Publica o site no Hostinger a cada push na main (ou manualmente pela aba Actions).
-# Gera o site com o Eleventy e envia só o conteúdo de _site/ por FTP.
+# Gera o site e grava o resultado na branch `publicacao`, que o Hostinger publica.
 #
-# Secrets do repositório (Settings > Secrets and variables > Actions):
-#   FTP_SERVER    ex.: ftp.fghisi.com.br ou o IP mostrado no hPanel
-#   FTP_USERNAME  usuário FTP do hPanel
-#   FTP_PASSWORD  senha desse usuário
-# Variável opcional:
-#   FTP_DIR       pasta de destino no servidor (padrão: public_html/)
+# A cada push na main (ou manualmente pela aba Actions), o Eleventy gera o site e
+# o conteúdo de _site/ vira um commit na branch `publicacao`. No hPanel, em
+# Avançado → GIT, essa branch está conectada ao site com implantação automática:
+# cada commit nela atualiza o public_html.
+#
+# Não precisa de nenhum secret: o push usa a permissão padrão do próprio GitHub.
 name: Deploy
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 concurrency:
   group: deploy
@@ -32,10 +34,14 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      # Grava _site/ na branch publicacao. Arquivos que saíram do site também
+      # saem da branch, e cada publicação fica no histórico (dá para voltar).
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./_site/
-          server-dir: ${{ vars.FTP_DIR || 'public_html/' }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: publicacao
+          publish_dir: ./_site
+          enable_jekyll: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: Publica o site

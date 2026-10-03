@@ -187,8 +187,8 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:.9rem;display:flex;j
     </a>
     <div class="direita">
       <nav aria-label="Principal">
-        <a href="#porque">Por que existe</a>
-        <a class="cta" href="#instituicoes">Instituições</a>
+        <a href="#porque" data-ga="clique_menu_amardoar" data-ga-item="Por que existe">Por que existe</a>
+        <a class="cta" href="#instituicoes" data-ga="clique_menu_amardoar" data-ga-item="Instituições">Instituições</a>
       </nav>
       <div class="controles">
         <label class="auto" title="Seguir o tema do sistema">
@@ -245,7 +245,7 @@ footer{padding-block:40px 56px;color:var(--muted);font-size:.9rem;display:flex;j
 
   <footer>
     <span><strong>amardoar</strong> · Toda doação começa com amor.</span>
-    <span>Um projeto de <a href="/">Fernando Ghisi</a> · Santa Catarina</span>
+    <span>Um projeto de <a href="/">Fernando Ghisi</a> · Santa Catarina · <a href="#" data-preferencias-cookies>Cookies</a></span>
   </footer>
 </main>
 
@@ -290,6 +290,9 @@ const ORGS = [
 ];
 
 const $ = s => document.querySelector(s);
+// Eventos do Google Analytics (definido em /js/analytics.js; sem consentimento, não faz nada)
+const medir = (nome, params) => window.medir?.(nome, params);
+let buscou = false;
 
 /* tema: mesma lógica e mesma preferência salva ("tema") do site pessoal */
 (function(){
@@ -329,8 +332,8 @@ function renderChips(){
   const ordem = [...cidades.filter(c=>!ESPECIAIS.includes(c)).sort((a,b)=>a.localeCompare(b,"pt-BR")),...ESPECIAIS.filter(c=>cidades.includes(c))];
   $("#chips").innerHTML = causes.map(c=>`<button class="chip" type="button" data-cause="${c}" aria-pressed="${state.cause===c}">${c!=="Todas"?`<span class="dot" style="background:${CAUSES[c].c}"></span>`:""}${c}</button>`).join("")
     + `<select id="cidade" aria-label="Filtrar por cidade"><option value="Todas">Todas as cidades</option>${ordem.map(c=>`<option value="${c}" ${state.cidade===c?"selected":""}>${c}</option>`).join("")}</select>`;
-  $("#chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{state.cause=b.dataset.cause;renderChips();renderGrid()});
-  $("#cidade").onchange=e=>{state.cidade=e.target.value;renderGrid()};
+  $("#chips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{state.cause=b.dataset.cause;renderChips();renderGrid();medir("filtro_causa",{causa:state.cause})});
+  $("#cidade").onchange=e=>{state.cidade=e.target.value;renderGrid();medir("filtro_cidade",{cidade:state.cidade})};
 }
 
 function renderGrid(){
@@ -356,13 +359,15 @@ function renderGrid(){
         </div>
       </div>`;
     return o.site
-      ? `<a class="card" href="https://${esc(o.site)}" target="_blank" rel="noopener" aria-label="${esc(o.nome)}, ${esc(lugar(o.cidade))}. Abrir o site em nova aba">${corpo}</a>`
+      ? `<a class="card" href="https://${esc(o.site)}" target="_blank" rel="noopener" data-ga="clique_instituicao" data-ga-instituicao="${esc(o.nome)}" data-ga-causa="${esc(o.causa)}" data-ga-cidade="${esc(o.cidade)}" aria-label="${esc(o.nome)}, ${esc(lugar(o.cidade))}. Abrir o site em nova aba">${corpo}</a>`
       : `<article class="card card--sem-site">${corpo}</article>`;
   }).join("") : `<div class="empty">Nenhuma instituição com esses filtros ainda. Tente outra causa ou cidade.</div>`;
 }
 
 $("#heroSearch").addEventListener("submit",e=>{e.preventDefault();state.q=$("#q").value;renderGrid();$("#instituicoes").scrollIntoView({behavior:"smooth"})});
-$("#q").addEventListener("input",e=>{state.q=e.target.value;renderGrid()});
+$("#q").addEventListener("input",e=>{state.q=e.target.value;renderGrid();
+  // Conta que a busca foi usada (uma vez por visita), sem enviar o texto digitado
+  if(!buscou&&state.q.trim().length>=3){buscou=true;medir("busca_usada")}});
 
 /* hero art: as duas metades da logo (amar + doar) se encontram, e pequenas
    doações chegam em curva até o coração, que pulsa a cada uma que soma. */
@@ -459,6 +464,7 @@ $("#q").addEventListener("input",e=>{state.q=e.target.value;renderGrid()});
 
 renderChips(); renderGrid();
 </script>
+<script src="/js/analytics.js" defer></script>
 
 </body>
 </html>

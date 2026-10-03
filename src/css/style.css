@@ -240,6 +240,7 @@ a, .tema, .menu__icone { transition: color .15s ease, text-decoration-color .15s
 .rodape { border-top: 1px solid var(--borda); color: var(--fg-2); font-size: 0.875rem; }
 .rodape__linha { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.5rem; }
 .rodape p { margin: 0; }
+.rodape a { color: inherit; }
 
 @media (max-width: 640px) {
   .sobre__intro { flex-direction: column; align-items: flex-start; gap: 1rem; }

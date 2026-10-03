@@ -1,8 +1,5 @@
 {% if pagination.pageNumber == 0 %}
-<section class="apresentacao">
-  <h1 class="visualmente-oculto">{{ site.title }}</h1>
-  <p>{{ t.description }}</p>
-</section>
+<h1 class="visualmente-oculto">{{ site.title }}</h1>
 {% endif %}
 
 {% include "lista-posts.njk" %}

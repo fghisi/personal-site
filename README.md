@@ -121,5 +121,28 @@ Para adicionar outro, crie a pasta e registre-a no `eleventy.config.js`
 
 ## Publicação
 
-O conteúdo de `_site/` pode ser servido por qualquer hospedagem estática
-(GitHub Pages, Netlify, Cloudflare Pages, Vercel).
+O site publicado é só o conteúdo de `_site/`, gerado pelo `npm run build`.
+Não suba a pasta do projeto inteira para a hospedagem.
+
+A publicação é automática e tem duas etapas:
+
+1. **GitHub Actions:** a cada push na `main`, o workflow
+   `.github/workflows/deploy.yml` roda o build e grava o conteúdo de `_site/`
+   na branch `publicacao` (cada publicação vira um commit). Também dá para
+   rodar manualmente em **Actions → Deploy → Run workflow**.
+2. **Hostinger:** no hPanel, em **Avançado → GIT**, a branch `publicacao` está
+   conectada ao site, com a pasta de instalação vazia (`public_html`) e a
+   implantação automática ligada. Cada commit nela atualiza o site.
+
+Não há senha de FTP nem secrets: o workflow usa a permissão padrão do GitHub.
+Para voltar a uma versão anterior, basta reverter o commit na `publicacao`.
+
+### Configuração inicial (uma vez)
+
+1. Rode o workflow uma vez (merge na `main` ou **Run workflow**) para criar a
+   branch `publicacao`.
+2. Esvazie o `public_html` no Gerenciador de Arquivos do Hostinger (a primeira
+   implantação por Git exige a pasta vazia).
+3. Em **Avançado → GIT**, conecte o GitHub e escolha o repositório
+   `fghisi/personal-site`, a branch `publicacao` e a pasta vazia.
+4. Ligue a implantação automática.

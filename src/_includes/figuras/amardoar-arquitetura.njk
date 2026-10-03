@@ -1,0 +1,31 @@
+<figure class="figura">
+<svg viewBox="0 0 720 260" role="img" aria-labelledby="f3t">
+  <title id="f3t">Arquitetura: fontes, build com Eleventy, site estático e hospedagem</title>
+  <defs><marker id="pt3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fg-2)"/></marker></defs>
+  <rect x="20" y="20" width="190" height="220" rx="14" class="caixa"/>
+  <text x="115" y="48" text-anchor="middle" class="svg-txt" font-size="15" font-weight="700">src/</text>
+  <g font-size="13" class="svg-mono">
+    <text x="40" y="82">posts/*.md</text>
+    <text x="40" y="108">_includes/ (Nunjucks)</text>
+    <text x="40" y="134">_data/ (site, i18n)</text>
+    <text x="40" y="160">css/  js/  img/</text>
+    <text x="40" y="186" style="fill:var(--goiaba)">amardoar/</text>
+    <text x="40" y="212">analytics.njk</text>
+  </g>
+  <line x1="214" y1="130" x2="276" y2="130" class="seta" marker-end="url(#pt3)"/>
+  <rect x="280" y="90" width="150" height="80" rx="14" fill="none" stroke="var(--destaque)" stroke-width="2"/>
+  <text x="355" y="125" text-anchor="middle" class="svg-txt" font-size="15" font-weight="700">Eleventy</text>
+  <text x="355" y="147" text-anchor="middle" class="svg-sub" font-size="12">npm run build</text>
+  <line x1="434" y1="130" x2="486" y2="130" class="seta" marker-end="url(#pt3)"/>
+  <rect x="490" y="50" width="210" height="160" rx="14" class="caixa"/>
+  <text x="595" y="78" text-anchor="middle" class="svg-txt" font-size="15" font-weight="700">_site/</text>
+  <g font-size="12.5" class="svg-sub">
+    <text x="510" y="106">HTML, CSS e JS estáticos</text>
+    <text x="510" y="128">CSS/JS com hash na URL</text>
+    <text x="510" y="150">/amardoar/ copiado como está</text>
+    <text x="510" y="172">/js/analytics.js (GA4)</text>
+  </g>
+  <text x="595" y="236" text-anchor="middle" class="svg-sub" font-size="12.5">publicado na Hostinger</text>
+</svg>
+<figcaption>Figura 3. Do código-fonte ao site publicado: tudo vira arquivos estáticos no build.</figcaption>
+</figure>

@@ -128,21 +128,21 @@ A publicação é automática e tem duas etapas:
 
 1. **GitHub Actions:** a cada push na `main`, o workflow
    `.github/workflows/deploy.yml` roda o build e grava o conteúdo de `_site/`
-   na branch `publicacao` (cada publicação vira um commit). Também dá para
+   na branch `production` (cada publicação vira um commit). Também dá para
    rodar manualmente em **Actions → Deploy → Run workflow**.
-2. **Hostinger:** no hPanel, em **Avançado → GIT**, a branch `publicacao` está
+2. **Hostinger:** no hPanel, em **Avançado → GIT**, a branch `production` está
    conectada ao site, com a pasta de instalação vazia (`public_html`) e a
    implantação automática ligada. Cada commit nela atualiza o site.
 
 Não há senha de FTP nem secrets: o workflow usa a permissão padrão do GitHub.
-Para voltar a uma versão anterior, basta reverter o commit na `publicacao`.
+Para voltar a uma versão anterior, basta reverter o commit na `production`.
 
 ### Configuração inicial (uma vez)
 
 1. Rode o workflow uma vez (merge na `main` ou **Run workflow**) para criar a
-   branch `publicacao`.
+   branch `production`.
 2. Esvazie o `public_html` no Gerenciador de Arquivos do Hostinger (a primeira
    implantação por Git exige a pasta vazia).
 3. Em **Avançado → GIT**, conecte o GitHub e escolha o repositório
-   `fghisi/personal-site`, a branch `publicacao` e a pasta vazia.
+   `fghisi/personal-site`, a branch `production` e a pasta vazia.
 4. Ligue a implantação automática.

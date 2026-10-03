@@ -1,7 +1,7 @@
-# Gera o site e grava o resultado na branch `publicacao`, que o Hostinger publica.
+# Gera o site e grava o resultado na branch `production`, que o Hostinger publica.
 #
 # A cada push na main (ou manualmente pela aba Actions), o Eleventy gera o site e
-# o conteúdo de _site/ vira um commit na branch `publicacao`. No hPanel, em
+# o conteúdo de _site/ vira um commit na branch `production`. No hPanel, em
 # Avançado → GIT, essa branch está conectada ao site com implantação automática:
 # cada commit nela atualiza o public_html.
 #
@@ -34,12 +34,12 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      # Grava _site/ na branch publicacao. Arquivos que saíram do site também
+      # Grava _site/ na branch production. Arquivos que saíram do site também
       # saem da branch, e cada publicação fica no histórico (dá para voltar).
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: publicacao
+          publish_branch: production
           publish_dir: ./_site
           enable_jekyll: true
           user_name: github-actions[bot]

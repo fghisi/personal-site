@@ -75,6 +75,38 @@ sol/lua escolhe manualmente (e desliga o auto). A escolha fica salva no navegado
 | Arquivos originais da logo    | `src/img/logo/`                 |
 | Favicons                      | `src/favicon.ico`, `src/favicon.svg`, `src/apple-touch-icon.png` |
 
+## Análise de acessos (Google Analytics 4)
+
+O site e o amardoar medem acessos e cliques com o GA4, **só depois de a pessoa
+aceitar** no banner de cookies. Antes disso nada é carregado. A escolha fica
+salva no navegador e pode ser mudada pelo link "Cookies" no rodapé.
+
+- ID de medição: `ga4` em `src/_data/site.js` (vazio = sem medição e sem banner).
+- Script: `src/analytics.njk`, que gera `/js/analytics.js`, usado pelo layout e
+  pelo amardoar.
+- Em `localhost` nada é enviado ao Google: os eventos aparecem no console.
+
+Eventos enviados (além das visualizações de página e da medição automática do
+GA4, que já registra cliques em links externos):
+
+| Evento | Onde | Parâmetros |
+|---|---|---|
+| `clique_menu` | menu do site | `item` |
+| `clique_rede_social` | ícones GitHub/LinkedIn/X | `rede` |
+| `clique_sobre_mim` | link "conheça um pouco mais sobre mim" | — |
+| `clique_menu_amardoar` | topo do amardoar | `item` |
+| `clique_instituicao` | card de instituição | `instituicao`, `causa`, `cidade` |
+| `filtro_causa` | filtros de causa | `causa` |
+| `filtro_cidade` | filtro de cidade | `cidade` |
+| `busca_usada` | busca do amardoar (uma vez por visita, sem o texto) | — |
+
+Para ver os parâmetros nos relatórios, cadastre cada um como **dimensão
+personalizada** com escopo de evento no GA4 (Administrador → Definições
+personalizadas): `item`, `rede`, `instituicao`, `causa` e `cidade`.
+
+Para marcar um novo clique, basta adicionar `data-ga="nome_do_evento"` ao
+elemento; atributos `data-ga-<campo>` viram parâmetros.
+
 ## Projetos
 
 Projetos independentes ficam em pastas próprias dentro de `src/`, com HTML, CSS e

@@ -118,8 +118,6 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
 }
 
 /* ---------- Home ---------- */
-.apresentacao { padding-bottom: 1.5rem; margin-bottom: 1rem; border-bottom: 1px dashed var(--borda); }
-.apresentacao p { color: var(--fg-2); margin: 0; font-size: 1.1rem; }
 .lista { list-style: none; margin: 0; padding: 0; }
 .cartao { padding-block: 1.5rem; border-bottom: 1px solid var(--borda); }
 .cartao__titulo { font-size: 1.35rem; margin: 0.25rem 0 0.4rem; }
@@ -205,6 +203,20 @@ h1 { font-size: clamp(1.9rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
   border: 3px solid var(--bg-2); box-shadow: 0 0 0 1px var(--borda);
 }
 
+/* ---------- Figuras dos posts (SVG inline, seguem o tema) ---------- */
+.figura { --goiaba: #D93A6E; --ipe: #F2B01E; --teal: #1E6B73; margin: 2rem 0; }
+:root[data-theme="dark"] .figura { --goiaba: #F0628F; --ipe: #F5C04A; --teal: #6CC3CA; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .figura { --goiaba: #F0628F; --ipe: #F5C04A; --teal: #6CC3CA; }
+}
+.figura svg { width: 100%; height: auto; display: block; }
+.figura figcaption { font: 400 0.85rem/1.5 var(--fonte); color: var(--fg-2); margin-top: 0.6rem; text-align: center; }
+.figura .svg-txt { font-family: var(--fonte); fill: var(--fg); }
+.figura .svg-sub { font-family: var(--fonte); fill: var(--fg-2); }
+.figura .svg-mono { font-family: var(--fonte-mono); fill: var(--fg); }
+.figura .caixa { fill: var(--bg-2); stroke: var(--borda); stroke-width: 1.5; }
+.figura .seta { stroke: var(--fg-2); stroke-width: 1.6; fill: none; }
+
 /* ---------- Movimento ---------- */
 /* Transição suave entre páginas; o topo fica parado enquanto o conteúdo troca. */
 @view-transition { navigation: auto; }
@@ -240,6 +252,7 @@ a, .tema, .menu__icone { transition: color .15s ease, text-decoration-color .15s
 .rodape { border-top: 1px solid var(--borda); color: var(--fg-2); font-size: 0.875rem; }
 .rodape__linha { display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap; padding-block: 1.5rem; }
 .rodape p { margin: 0; }
+.rodape a { color: inherit; }
 
 @media (max-width: 640px) {
   .sobre__intro { flex-direction: column; align-items: flex-start; gap: 1rem; }

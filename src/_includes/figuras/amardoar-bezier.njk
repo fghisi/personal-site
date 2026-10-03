@@ -1,0 +1,24 @@
+<figure class="figura">
+<svg viewBox="0 0 720 300" role="img" aria-labelledby="f4t">
+  <title id="f4t">Trajetória de uma doação: curva de Bézier quadrática do ponto de partida ao coração</title>
+  <g transform="translate(360 165) scale(3.2)">
+    <path d="M0 15 C-12 6 -17 -1 -17 -7.5 C-17 -12.5 -13 -16 -8.5 -16 C-5 -16 -2 -14 0 -11 Z" fill="var(--goiaba)"/>
+    <path d="M0 15 C12 6 17 -1 17 -7.5 C17 -12.5 13 -16 8.5 -16 C5 -16 2 -14 0 -11 Z" fill="var(--ipe)"/>
+  </g>
+  <path d="M80 70 Q170 260 330 170" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-dasharray="6 6"/>
+  <line x1="80" y1="70" x2="170" y2="260" class="seta" stroke-dasharray="2 4"/>
+  <line x1="170" y1="260" x2="330" y2="170" class="seta" stroke-dasharray="2 4"/>
+  <circle cx="80" cy="70" r="6" fill="var(--teal)"/>
+  <circle cx="170" cy="260" r="5" fill="none" stroke="var(--fg-2)" stroke-width="2"/>
+  <text x="92" y="64" class="svg-txt" font-size="13" font-weight="600">P0: partida</text>
+  <text x="182" y="268" class="svg-sub" font-size="13">P1: ponto de controle (dá a curva)</text>
+  <text x="402" y="70" class="svg-sub" font-size="13">P2: o coração da logo</text>
+  <g class="svg-mono" font-size="13">
+    <text x="470" y="200">B(q) = (1−q)²·P0</text>
+    <text x="470" y="222">     + 2(1−q)q·P1</text>
+    <text x="470" y="244">     + q²·P2</text>
+    <text x="470" y="270" style="fill:var(--fg-2)">q = p²  (acelera no fim)</text>
+  </g>
+</svg>
+<figcaption>Figura 4. Cada doação segue uma curva de Bézier quadrática. Com q = p², ela anda devagar no começo e acelera no fim.</figcaption>
+</figure>
